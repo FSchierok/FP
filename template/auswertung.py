@@ -27,6 +27,11 @@ import math as m
 def fehler(x):
     return np.std(x, ddof=1) / len(x)
 
+
+# Import
+luft = np.genfromtxt("data/luft.txt", unpack=True)
+glas = np.genfromtxt("data/glas.txt", unpack=True)
+
 # Daten einlesen und ausgeben:
 # x = np.genfromtxt("data/x.txt", unpack=True) [Skalar oder Vektor]
 # y = ufloat(y-Nominalwert, y-Fehler) [Skalar mit Fehler]

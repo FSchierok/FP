@@ -1,4 +1,4 @@
-all: auswertung  document
+all: auswertung  VXX.pdf
 
 TeXOptions = -lualatex \
 			 -interaction=nonstopmode \
@@ -7,7 +7,7 @@ TeXOptions = -lualatex \
 
 VXX.pdf: main.tex auswertung.py
 	latexmk $(TeXOptions) main.tex
-	mv build/main.pdf uild VXX.pdf
+	mv build/main.pdf build/VXX.pdf
 
 auswertung: auswertung.py data/*.txt
 	python auswertung.py
