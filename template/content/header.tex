@@ -1,0 +1,141 @@
+\documentclass[
+  bibliography=totoc,     % Literatur im Inhaltsverzeichnis
+  captions=tableheading,  % Tabellenüberschriften
+  titlepage=firstiscover, % Titelseite ist Deckblatt
+]{scrartcl}
+
+
+%------------------------------------------------------------------------------
+%------------------------------ Sprache und Schrift: --------------------------
+%------------------------------------------------------------------------------
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}  % -- becomes en-dash etc.
+
+% german language
+\usepackage{polyglossia}
+\setdefaultlanguage{german}
+
+% for english abstract and english titles in the toc
+\setotherlanguages{english}
+
+% intelligent quotation marks, language and nesting sensitive
+\usepackage[autostyle]{csquotes}
+
+% microtypographical features, makes the text look nicer on the small scale
+\usepackage{microtype}
+
+%------------------------------------------------------------------------------
+%------------------------ Für die Matheumgebung--------------------------------
+%------------------------------------------------------------------------------
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+% Enable Unicode-Math and follow the ISO-Standards for typesetting math
+\usepackage[
+math-style=ISO,
+bold-style=ISO,
+sans-style=italic,
+nabla=upright,
+partial=upright,
+]{unicode-math}
+\setmathfont{Latin Modern Math}
+
+% nice, small fracs for the text with \sfrac{}{}
+\usepackage{xfrac}  
+
+
+%------------------------------------------------------------------------------
+%---------------------------- Numbers and Units -------------------------------
+%------------------------------------------------------------------------------
+
+\usepackage[
+locale=DE,
+separate-uncertainty=true,
+per-mode=symbol-or-fraction,
+]{siunitx}
+\sisetup{math-micro=\text{µ},text-micro=µ}
+
+% scientific notation, 1\e{9} will print as 1x10^9
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+
+%------------------------------------------------------------------------------
+%-------------------------------- tables  -------------------------------------
+%------------------------------------------------------------------------------
+
+\usepackage{booktabs}       % stellt \toprule, \midrule, \bottomrule
+
+%------------------------------------------------------------------------------
+%-------------------------------- graphics -------------------------------------
+%------------------------------------------------------------------------------
+
+\usepackage{graphicx}
+\usepackage{grffile}
+
+% allow figures to be placed in the running text by default:
+\usepackage{scrhack}
+\usepackage{float}
+\floatplacement{figure}{htbp}
+\floatplacement{table}{htbp}
+
+% keep figures and tables in the section
+\usepackage[section, below]{placeins}
+
+% Seite drehen für breite Tabellen: landscape Umgebung
+\usepackage{pdflscape}
+
+% Captions schöner machen.
+\usepackage[
+  labelfont=bf,        % Tabelle x: Abbildung y: ist jetzt fett
+  font=small,          % Schrift etwas kleiner als Dokument
+  width=0.9\textwidth, % maximale Breite einer Caption schmaler
+]{caption}
+
+
+% Literaturverzeichnis
+\usepackage[
+  backend=biber,
+]{biblatex}
+% Quellendatenbank
+\addbibresource{content/lit.bib}
+\addbibresource{content/programme.bib}
+
+% Hyperlinks im Dokument
+\usepackage[
+  unicode,        % Unicode in PDF-Attributen erlauben
+  pdfusetitle,    % Titel, Autoren und Datum als PDF-Attribute
+  pdfcreator={},  % ┐ PDF-Attribute säubern
+  pdfproducer={}, % ┘
+]{hyperref}
+
+% erweiterte Bookmarks im PDF
+\usepackage{bookmark}
+\usepackage{subcaption}
+
+% Trennung von Wörtern mit Strichen
+\usepackage[shortcuts]{extdash}
+
+% Shortcuts
+\usepackage{expl3}
+\usepackage{xparse}
+
+% Zeileneinzug verhindern
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{0.3cm}
+
+\author{%
+  Fabian Schierok%
+  \texorpdfstring{%
+    \\%
+    \href{mailto:fabian.schierok@udo.edu}{fabian.schierok@udo.edu}
+  }{}%
+  \texorpdfstring{\and}{, }%
+  Carlo Tasillo%
+  \texorpdfstring{%
+    \\%
+    \href{mailto:carlo.tasillo@udo.edu}{carlo.tasillo@udo.edu}
+  }{}%
+}
+\publishers{TU Dortmund – Fakultät Physik}
+
