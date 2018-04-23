@@ -28,21 +28,33 @@ def fehler(x):
     return np.std(x, ddof=1) / len(x)
 
 
+def np2ufl(x):
+    return ufloat(np.mean(x), fehler(x))
+
+
 # Import
 luft = np.genfromtxt("data/luft.txt", unpack=True)
 glas = np.genfromtxt("data/glas.txt", unpack=True)
-T, lam = np.genfromtxt("data/setup.txt", unpack=True)
+T, lam, t = np.genfromtxt("data/setup.txt", unpack=True)
 
 # Umrechnen
 glas[1] = np.deg2rad(glas[1])  # deg -> rad
 luft[3] = 100 * luft[3]  # mbar -> Pa
 T = T + 273.15  # C -> K
-lam = lam * 1e-9
+lam = lam * 1e-9  # nm -> m
+t = t * 1e-3  # mm -> m
 
 # glas
-n_glas = 1 / (1 - ((2 * glas[0] * lam) / (2 * T * glas[1]**2)))
-print(n_glas)
+n_glas_raw = 1 / (1 - ((glas[0] * lam) / (2 * t * glas[1]**2)))
+print("n Glas: " + str(n_glas_raw))
+n_glas = np2ufl(n_glas_raw)
+print("n Glas Fehler: ", str(n_glas))
 
+
+cap = r"Messwerte und daraus bestimmten Brechungsindeces $n_{Glas}$"
+hr = [[r"Messung", r"\vartheta", r"M"], [r"#", r"rad", "#"]]
+with open("tab/glas.tex", "w") as file:
+    file.write(matrix2latex([np.arange(len(glas[0])), glas[1], glas[0], n_glas_raw], caption=cap, headerRow=hr, alignment="S", format="%.2f", label="tab:glas"))
 # Daten einlesen und ausgeben:
 # x = np.genfromtxt("data/x.txt", unpack=True) [Skalar oder Vektor]
 # y = ufloat(y-Nominalwert, y-Fehler) [Skalar mit Fehler]
