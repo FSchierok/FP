@@ -28,6 +28,21 @@ def fehler(x):
     return np.std(x, ddof=1) / len(x)
 
 
+# Import
+luft = np.genfromtxt("data/luft.txt", unpack=True)
+glas = np.genfromtxt("data/glas.txt", unpack=True)
+T, lam = np.genfromtxt("data/setup.txt", unpack=True)
+
+# Umrechnen
+glas[1] = np.deg2rad(glas[1])  # deg -> rad
+luft[3] = 100 * luft[3]  # mbar -> Pa
+T = T + 273.15  # C -> K
+lam = lam * 1e-9
+
+# glas
+n_glas = 1 / (1 - ((2 * glas[0] * lam) / (2 * T * glas[1]**2)))
+print(n_glas)
+
 # Daten einlesen und ausgeben:
 # x = np.genfromtxt("data/x.txt", unpack=True) [Skalar oder Vektor]
 # y = ufloat(y-Nominalwert, y-Fehler) [Skalar mit Fehler]
