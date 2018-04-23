@@ -1,4 +1,4 @@
-all: auswertung  document
+all: auswertung  V64.pdf
 
 TeXOptions = -lualatex \
 			 -interaction=nonstopmode \
@@ -7,7 +7,7 @@ TeXOptions = -lualatex \
 
 V64.pdf: main.tex auswertung.py
 	latexmk $(TeXOptions) main.tex
-	mv build/main.pdf uild V64.pdf
+	mv build/main.pdf build/V64.pdf
 
 doc: main.tex
 	latexmk $(TeXOptions) main.tex
