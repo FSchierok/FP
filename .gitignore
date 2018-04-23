@@ -1,0 +1,7 @@
+*.pdf
+\build
+*~
+.DS_Store
+\global
+*~
+*/tab/*.tex
