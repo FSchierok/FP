@@ -1,4 +1,5 @@
 # Tabellenprogramm https://github.com/TheChymera/matrix2latex
+# martin.berger(at)tu-
 import os
 import sys
 sys.path.insert(0, '../global/matrix2latex-master/')
@@ -32,10 +33,18 @@ def np2ufl(x):
     return ufloat(np.mean(x), fehler(x))
 
 
+def uarr2ufl(x):
+    nom = noms(x)
+    std = stds(x)
+    mean = sum(nom / std**2) / sum(1 / std**2)
+    err = np.sqrt(1 / sum(1 / std**2))
+    return ufloat(mean, err)
+
+
 # Import
 luft = np.genfromtxt("data/luft.txt", unpack=True)
 glas = np.genfromtxt("data/glas.txt", unpack=True)
-T, lam, t = np.genfromtxt("data/setup.txt", unpack=True)
+T, lam, t, L_m, L_err = np.genfromtxt("data/setup.txt", unpack=True)
 
 # Umrechnen
 glas[1] = np.deg2rad(glas[1])  # deg -> rad
@@ -43,6 +52,7 @@ luft[3] = 100 * luft[3]  # mbar -> Pa
 T = T + 273.15  # C -> K
 lam = lam * 1e-9  # nm -> m
 t = t * 1e-3  # mm -> m
+L = ufloat(L_m, L_err) / 1000  # Fehler, mm -> m
 
 # glas
 n_glas_raw = 1 / (1 - ((glas[0] * lam) / (2 * t * glas[1]**2)))
@@ -52,9 +62,21 @@ print("n Glas Fehler: ", str(n_glas))
 
 
 cap = r"Messwerte und daraus bestimmten Brechungsindeces $n_{Glas}$"
-hr = [[r"Messung", r"\vartheta", r"M"], [r"#", r"rad", "#"]]
+hr = [[r"Messung", r"\vartheta", r"$M$", r"n_{Glas}"], [r"#", r"rad", r"#", r"#"]]
 with open("tab/glas.tex", "w") as file:
-    file.write(matrix2latex([np.arange(len(glas[0])), glas[1], glas[0], n_glas_raw], caption=cap, headerRow=hr, alignment="S", format="%.2f", label="tab:glas"))
+    file.write(matrix2latex([np.arange(len(glas[0])), glas[1], glas[0], n_glas_raw], caption=cap, headerRow=hr, alignment="S", label=r"tab:glas", transpose=False))
+
+# luft
+n_luft_raw = unp.uarray([1, 1, 1], [0, 0, 0])
+for i in range(3):
+    n_luft_raw[i] = (luft[i][-1] * lam / L) + 1
+    print("Messreihe " + str(i) + ": " + str(n_luft_raw[i]))
+n_luft = uarr2ufl(n_luft_raw)
+print("n_Luft: " + str(n_luft))
+cap = r"Messwerte und daraus bestimmten Brechungsindeces $n_{Luft}$"
+hr = [[r"Messung", r"$M$", r"n_{Luft}", r"\sigma"], [r"#", r"#", r"#", r"#"]]
+with open("tab/luft.tex", "w") as file:
+    file.write(matrix2latex([np.arange(len(n_luft_raw)), [luft[0][-1], luft[1][-1], luft[2][-1]], noms(n_luft_raw), stds(n_luft_raw)], caption=cap, headerRow=hr, alignment="S", label=r"tab:luft", transpose=False))
 # Daten einlesen und ausgeben:
 # x = np.genfromtxt("data/x.txt", unpack=True) [Skalar oder Vektor]
 # y = ufloat(y-Nominalwert, y-Fehler) [Skalar mit Fehler]
