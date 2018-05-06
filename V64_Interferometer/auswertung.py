@@ -62,7 +62,7 @@ print("n Glas Fehler: ", str(n_glas))
 
 
 cap = r"Messwerte und daraus bestimmten Brechungsindeces $n_\text{Glas}$"
-hr = [[r"Messung", r"\Theta", r"$M$", r"$n_\text{Glas}$"], [r"1", r"rad", r" 1", r"1 "]]
+hr = [[r"Messung", r"$\Theta$", r"$M$", r"$n_\text{Glas}$"], [r" ", r"rad", r"  ", r"   "]]
 with open("tab/glas.tex", "w") as file:
     file.write(matrix2latex([np.arange(len(glas[0])), glas[1], glas[0], n_glas_raw], caption=cap, headerRow=hr, alignment="l", label=r"tab:glas", transpose=False))
 
@@ -74,7 +74,7 @@ for i in range(3):
 n_luft = uarr2ufl(n_luft_raw)
 print("n_Luft: " + str(n_luft))
 cap = r"Messwerte und daraus bestimmten Brechungsindeces $n_\text{Luft}$"
-hr = [[r"Messung", r"$M$", r"$n_\text{Luft}$", r"\sigma"], [r" 1", r"1 ", r" 1 ", r"1"]]
+hr = [r"Messung", r"$M$", r"$n_\text{Luft}$", r"\sigma"]
 with open("tab/luft.tex", "w") as file:
     file.write(matrix2latex([np.arange(len(n_luft_raw)), [luft[0][-1], luft[1][-1], luft[2][-1]], noms(n_luft_raw), stds(n_luft_raw)], caption=cap, headerRow=hr, alignment="l", label=r"tab:luft", transpose=False))
 # Daten einlesen und ausgeben:
