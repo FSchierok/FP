@@ -63,7 +63,7 @@ print("n Glas Fehler: ", str(n_glas))
 
 cap = r"Messwerte und daraus bestimmten Brechungsindizes $n_\text{Glas}$."
 hr = [[r"$\Theta$", r"$\Theta$", r"$M$", r"$n_\text{Glas}$"], [r"deg", r"rad", r"  ", r"   "]]
-fmt = ["%.0f", "%.3f", "%.0f", "%.3f"]
+fmt = ["%.1f", "%.2f", "%.0f", "%.2f"]
 with open("tab/glas.tex", "w") as file:
     file.write(matrix2latex([np.rad2deg(glas[1]), glas[1], glas[0], n_glas_raw], caption=cap, headerRow=hr, alignment="S", label=r"tab:glas", transpose=False, formatColumn=fmt))
 
@@ -88,9 +88,10 @@ plt.ylabel(r"$K$")
 plt.grid()
 plt.savefig("img/kontrast.pdf")
 cap = r"Messwerte und resultiernde Kontraste der Kontrastmessung."
-hr = [[r"$\varphi$", r"$U_\text{max}$", r"$U_\text{min}$", r"K"], [r"deg", r"mV", r"mV", r" "]]
+hr = [[r"$\Theta$", r"$U_\text{max}$", r"$U_\text{min}$", r"$K$"], [r"deg", r"mV", r"mV", r" "]]
+fmt = ["%.1f", "%.2f", "%.2f", "%.2f"]
 with open("tab/kontrast.tex", "w") as file:
-    file.write(matrix2latex([phi, Umax, Umin, k], headerRow=hr, caption=cap, alignment="S", label=r"tab:kontrast", transpose=False, format="%.2f"))
+    file.write(matrix2latex([phi, Umax, Umin, k], headerRow=hr, caption=cap, alignment="S", label=r"tab:kontrast", transpose=False, formatColumn=fmt))
 # Daten einlesen und ausgeben:
 # x = np.genfromtxt("data/x.txt", unpack=True) [Skalar oder Vektor]
 # y = ufloat(y-Nominalwert, y-Fehler) [Skalar mit Fehler]
