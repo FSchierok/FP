@@ -88,7 +88,7 @@ plt.ylabel(r"$K$")
 plt.grid()
 plt.savefig("img/kontrast.pdf")
 cap = r"Messwerte und resultiernde Kontraste der Kontrastmessung."
-hr = [[r"$\Theta$", r"$U_\text{max}$", r"$U_\text{min}$", r"$K$"], [r"deg", r"mV", r"mV", r" "]]
+hr = [[r"$\theta$", r"$U_\text{max}$", r"$U_\text{min}$", r"$K$"], [r"deg", r"mV", r"mV", r" "]]
 fmt = ["%.1f", "%.2f", "%.2f", "%.2f"]
 with open("tab/kontrast.tex", "w") as file:
     file.write(matrix2latex([phi, Umax, Umin, k], headerRow=hr, caption=cap, alignment="S", label=r"tab:kontrast", transpose=False, formatColumn=fmt))
