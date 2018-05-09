@@ -61,10 +61,11 @@ n_glas = np2ufl(n_glas_raw)
 print("n Glas Fehler: ", str(n_glas))
 
 
-cap = r"Messwerte und daraus bestimmten Brechungsindeces $n_\text{Glas}$"
-hr = [[r"Messung", r"$\Theta$", r"$M$", r"$n_\text{Glas}$"], [r" ", r"rad", r"  ", r"   "]]
+cap = r"Messwerte und daraus bestimmten Brechungsindizes $n_\text{Glas}$."
+hr = [[r"$\Theta$", r"$\Theta$", r"$M$", r"$n_\text{Glas}$"], [r"deg", r"rad", r"  ", r"   "]]
+fmt = ["%.0f", "%.3f", "%.0f", "%.3f"]
 with open("tab/glas.tex", "w") as file:
-    file.write(matrix2latex([np.arange(len(glas[0])), glas[1], glas[0], n_glas_raw], caption=cap, headerRow=hr, alignment="l", label=r"tab:glas", transpose=False))
+    file.write(matrix2latex([np.rad2deg(glas[1]), glas[1], glas[0], n_glas_raw], caption=cap, headerRow=hr, alignment="S", label=r"tab:glas", transpose=False, formatColumn=fmt))
 
 # luft
 n_luft_raw = unp.uarray([1, 1, 1], [0, 0, 0])
@@ -73,10 +74,23 @@ for i in range(3):
     print("Messreihe " + str(i) + ": " + str(n_luft_raw[i]))
 n_luft = uarr2ufl(n_luft_raw)
 print("n_Luft: " + str(n_luft))
-cap = r"Messwerte und daraus bestimmten Brechungsindeces $n_\text{Luft}$"
-hr = [r"Messung", r"$M$", r"$n_\text{Luft}$", r"\sigma"]
+cap = r"Messwerte und daraus bestimmten Brechungsindizes $n_\text{Luft}$."
+hr = [r"$M$", r"$n_\text{Luft}$", r"\sigma"]
+fmt = ["%.0f", "%.5f", "%.5f"]
 with open("tab/luft.tex", "w") as file:
-    file.write(matrix2latex([np.arange(len(n_luft_raw)), [luft[0][-1], luft[1][-1], luft[2][-1]], noms(n_luft_raw), stds(n_luft_raw)], caption=cap, headerRow=hr, alignment="l", label=r"tab:luft", transpose=False))
+    file.write(matrix2latex([[luft[0][-1], luft[1][-1], luft[2][-1]], noms(n_luft_raw), stds(n_luft_raw)], caption=cap, headerRow=hr, alignment="S", label=r"tab:luft", transpose=False, formatColumn=fmt))
+
+phi, Umin, Umax = np.genfromtxt("data/kontrast.txt", unpack=True)
+k = (Umax - Umin) / (Umax + Umin)
+plt.plot(phi, k, ".b", label="Messwerte")
+plt.xlabel(r"$\varphi / \text{deg}$")
+plt.ylabel(r"$K$")
+plt.grid()
+plt.savefig("img/kontrast.pdf")
+cap = r"Messwerte und resultiernde Kontraste der Kontrastmessung."
+hr = [[r"$\varphi$", r"$U_\text{max}$", r"$U_\text{min}$", r"K"], [r"deg", r"mV", r"mV", r" "]]
+with open("tab/kontrast.tex", "w") as file:
+    file.write(matrix2latex([phi, Umax, Umin, k], headerRow=hr, caption=cap, alignment="S", label=r"tab:kontrast", transpose=False, format="%.2f"))
 # Daten einlesen und ausgeben:
 # x = np.genfromtxt("data/x.txt", unpack=True) [Skalar oder Vektor]
 # y = ufloat(y-Nominalwert, y-Fehler) [Skalar mit Fehler]
