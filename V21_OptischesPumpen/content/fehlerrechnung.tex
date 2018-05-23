@@ -1,0 +1,35 @@
+\section{Fehlerrechnung}
+\label{sec:Fehler}
+
+Im Folgenden werden alle Mittelwerte nach der Gleichung
+
+\begin{equation}
+	\overline{x} = \dfrac{1}{N} \sum_{i = 1}^{N} x_i
+	\label{eqn:mean}
+\end{equation}
+
+bestimmt. Die zugehörigen Fehler der Mittelwerte berechnen sich mit
+
+\begin{equation}
+	\Delta\overline{x} = \sqrt{\dfrac{1}{N\left(N-1\right)} \sum_{i = 1}^{N} \left(x_i - \overline{x}\right)^2}.
+	\label{eqn:std}
+\end{equation}
+
+Zur Berechnung von Unsicherheiten abgeleiteter Größen wird die Gaußsche Fehlerfortpflanzung verwendet:
+
+\begin{equation}
+	\Delta f = \sqrt{\sum_{i = 1}^{N} \left(\dfrac{\partial f}{\partial x_i}\right)^2 \cdot \left(\Delta x_i\right)^2}.
+	\label{eqn:gauss}
+\end{equation}
+
+Eventuelle Regressionsgeraden $y = ax + b$ berechnen sich nach
+
+\begin{equation}
+	a = \dfrac{\overline{xy} - \overline{x} \cdot \overline{y}}{\overline{x^2} - \overline{x}^2}
+\end{equation}
+
+\begin{equation}
+	b = \dfrac{\overline{x^2} \cdot \overline{y} - \overline{x} \cdot \overline{xy}}{\overline{x^2} - \overline{x}^2}.
+\end{equation}
+
+Die Regression von linearen und nichtlinearen Zusammenhängen wurden in Python 3.5.2 mit Scipy 0.11.0 durchgeführt, allgemeine Berechnungen mit NumPy 1.7.0 und die Bestimmung der zugehörigen Unsicherheiten mit uncertainties 3.0.1.
