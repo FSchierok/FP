@@ -76,13 +76,27 @@ n_luft = uarr2ufl(n_luft_raw)
 print("n_Luft: " + str(n_luft))
 cap = r"Messwerte und daraus bestimmten Brechungsindizes $n_\text{Luft}$."
 hr = [r"$M$", r"$n_\text{Luft}$", r"\sigma"]
-fmt = ["%.0f", "%.5f", "%.5f"]
+fmt = ["%.0f", "%.6f", "%.6f"]
 with open("tab/luft.tex", "w") as file:
     file.write(matrix2latex([[luft[0][-1], luft[1][-1], luft[2][-1]], noms(n_luft_raw), stds(n_luft_raw)], caption=cap, headerRow=hr, alignment="S", label=r"tab:luft", transpose=False, formatColumn=fmt))
 
+###
+
 phi, Umin, Umax = np.genfromtxt("data/kontrast.txt", unpack=True)
 k = (Umax - Umin) / (Umax + Umin)
+
+
+def theo(phi, a, b):
+    return b * np.sin(2 * ((phi + a) * np.pi / 180))
+
+
+param, cov = curve_fit(theo, phi, k)
+print("a=", param[0])
+print("b=", param[1])
+phi_theo = np.linspace(0,  90, 200)
+
 plt.plot(phi, k, ".b", label="Messwerte")
+plt.plot(phi_theo, theo(phi_theo, *param))
 plt.xlabel(r"$\varphi / \text{deg}$")
 plt.ylabel(r"$K$")
 plt.grid()
