@@ -29,8 +29,25 @@ def fehler(x):
 
 
 # Import
-luft = np.genfromtxt("data/luft.txt", unpack=True)
-glas = np.genfromtxt("data/glas.txt", unpack=True)
+dips = [None, None, None, None]
+f, dips[0], dips[1], dips[2], dips[3] = np.genfromtxt("data/dips.txt", unpack=True)
+f *= 1e3
+dips[0] *= 0.1
+dips[1] *= 0.3
+dips[2] *= 0.1
+dips[3] *= 0.3
+
+f = unp.uarray(f, [0.1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+dip1 = [unp.uarray(dips[0], np.ones(len(dips[0])) * 0.002), unp.uarray(dips[1], np.ones(len(dips[1])) * 0.006)]  # dip1[0]=Stat mit Fehler und dip1[1]=Sweep mit Fehler
+dip2 = [unp.uarray(dips[2], np.ones(len(dips[2])) * 0.002), unp.uarray(dips[3], np.ones(len(dips[3])) * 0.006)]
+print(dip1[0])
+print("################")
+print(dip1[1])
+print("################")
+print(dip2[0])
+print("################")
+print(dip2[1])
+print("################")
 
 # Daten einlesen und ausgeben:
 # x = np.genfromtxt("data/x.txt", unpack=True) [Skalar oder Vektor]
