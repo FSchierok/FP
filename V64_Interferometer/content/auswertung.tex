@@ -4,8 +4,17 @@
 
 \subsection{Kontrast}
 
-Zunächst wurde der Kontrast des Interferometers bestimmt. Dazu wurden die Minima und Maxima der Intensität in Abhängigkeit vom Winkel $\theta$ vermessen. Die Daten sind in Tabelle \ref{tab:kontrast} zu finden und die nach Formel \eqref{eq:kontrast} bestimmten Kontraste sind in Plot \ref{img:kontrast} zu sehen. Das  Maximum befindet sich bei $\theta = \SI{52.5}{°}$. Diese Einstellung wurde bei allen weiteren Messungen verwendet.
-
+Zunächst wurde der Kontrast des Interferometers bestimmt. Dazu wurden die Minima und Maxima der Intensität in Abhängigkeit vom Winkel $\theta$ vermessen. Nach Formel \eqref{eq:kontrast} werden die Kontraste bestimmt.  Um das Maximum zu ermitteln, wird eine Funktion der Form
+\begin{equation}
+  K(\theta)=a\sin(2(b\theta+c))+d
+\end{equation}
+an die Messwerte gefittet. Dabei ergibt sich für die Fittparameter:
+\begin{align}
+  a&=\si{0,39} & b&=\si{1,72} \\
+  c&=\SI{-42,1}{°} & d&=\si{0,51}
+\end{align}
+Das Maximum befindet sich also bei $\theta=\SI{50,5}{°}$, für die weiteren Messungen wurde jedoch $\theta=\SI{52.5}{°}$ verwendet.
+Die Messwerte sind in Tabelle \ref{tab:kontrast} zu finden und die  Kontraste sowie der Fit sind in Plot \ref{img:kontrast} zu sehen.
 \begin{figure}
   \centering
   \includegraphics[width=0.8\linewidth]{img/kontrast.pdf}
