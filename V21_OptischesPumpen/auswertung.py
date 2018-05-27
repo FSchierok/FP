@@ -125,4 +125,4 @@ cap = r"Die aufgenommenen Stromstärken der beiden horizontalen Spulen und die k
 hr = [[r"Frequenz", r"Frequenz", r"Stromstärke", r"Stromstärke", r"Stromstärke", r"Stromstärke", r"Magnetfeld", r"Magnetfeld"], [r"$f\, /\mathrm{kHz}$", r"$\Delta f\, /\mathrm{kHz}$", r"$I_{1,\mathrm{S}}\, /\mathrm{mA}$","$\Delta I_{1,\mathrm{S}}\, /\mathrm{mA}$", r"$I_{1,\mathrm{H}}\, /\mathrm{mA}$", r"$\Delta I_{1,\mathrm{H}}\, /\mathrm{mA}$", r"$B_1 \, / \mathrm{µT}$", r"$\Delta B_1 \, / \mathrm{µT}$"]]
 fmt = ["%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f"]
 with open("tab/tab2.tex", "w") as file:
-    file.write(matrix2latex([noms(f)*1e-3, stds(f)*1e-3, noms(Isweep2)*1e3, stds(Isweep2)*1e3, noms(Istat2)*1e3, stds(Istat2)*1e3, noms(B2)*1e6, stds(B2)*1e6], headerRow=hr, alignment="S", caption=cap, label=r"tab:tab1", transpose=False, formatColumn=fmt))
+    file.write(matrix2latex([noms(f)*1e-3, stds(f)*1e-3, noms(Isweep2)*1e3, stds(Isweep2)*1e3, noms(Istat2)*1e3, stds(Istat2)*1e3, noms(B2)*1e6, stds(B2)*1e6], headerRow=hr, alignment="S", caption=cap, label=r"tab:tab2", transpose=False, formatColumn=fmt))
