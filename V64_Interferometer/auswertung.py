@@ -86,16 +86,19 @@ phi, Umin, Umax = np.genfromtxt("data/kontrast.txt", unpack=True)
 k = (Umax - Umin) / (Umax + Umin)
 
 
-def theo(phi, a, b):
-    return b * np.sin(2 * ((phi + a) * np.pi / 180))
+def theo(phi, a, b, c, d):
+    return a * np.sin(2 * ((phi * b + c) * np.pi / 180)) + d
 
 
 param, cov = curve_fit(theo, phi, k)
 print("a=", param[0])
 print("b=", param[1])
+print("c=", param[2])
+print("d=", param[3])
 phi_theo = np.linspace(0,  90, 200)
 
 plt.plot(phi, k, ".b", label="Messwerte")
+#plt.plot(45.35, 1)
 plt.plot(phi_theo, theo(phi_theo, *param))
 plt.xlabel(r"$\varphi / \text{deg}$")
 plt.ylabel(r"$K$")
