@@ -1,5 +1,30 @@
 \section{Theorie}
 \label{sec:Theorie}
+In diesem Experiment soll die Energiedifferenz der Zeemannniveaus untersucht werden. Dazu wird das Verfahren des Optischen Pumpen verwendet, was eine präzise Bestimmung ermöglicht.
 
-
-
+Die Elektronen in einem Atom können nur diskrete Energien annehmen. Die Besetzungen $N_1$ und $N_2$  zweier Energielevel $W_1$ und $W_2$ (mit $W_1<W_2$) wird duch die Boltzmannverteilung beschrieben.
+\begin{equation}
+	\frac{N_2}{N_1}=\frac{g_2}{g_1}\frac{\exp(-W_2k_\mathrm{B}T)}{\exp(-W_1k_\mathrm{B}T)}
+	\label{eqn:Bolztmann}
+\end{equation}
+Dabei ist $k_\mathrm{B}$ die Bolztmannkonstante, $T$ die Temperatur und $g_i$ die statistischen Gewichte. Das Optische Pumpen ermöglicht es diese natürliche Verteilung so anzuregen, das $N_2 > N_1$ gilt. Mit einem induzierten Strahlenübergang kann dann die Energiedifferenz $W_2-W_1$ genau bestimmt werden.
+\subsection{Magnetische Momente}
+Da sowohl der Bahndrehimpuls $\vec{L}$ als auch der Spin $\vec{S}$ ein magnetisches Moment $\vec{\mu_L}$ bzw. $\vec{\mu_S}$ haben, hat auch die Kopplung $\vec{J}$ ein magnetisches Moment $\vec{\mu_J}$.
+\begin{align}
+	\vec{\mu_J}&=\vec{\mu_L} +\vec{\mu_S} & \left| \mu_J \right|&=g_J\mu_B\sqrt{J(J+1)}
+\end{align}
+Dabei präzediert $\vec{\mu_J}$ um $\vec{J}$, und daher verschwinden über die Zeit gemittelt die senkrechten Anteile.
+Wenn ein äußeres Magnetfeld $B$ anliegt, präzediert $\vec{\mu_J}$ auch um die parallelen Anteile von $B$. Die so beeinflussten Energieniveaus werden mit der Quantenzahl $M_J$ beschrieben und folgen der Formel
+\begin{equation}
+	U_\mathrm{mag} = M_J g_J \mu_\mathrm{B}B
+\end{equation}
+mit
+\begin{equation}
+	g_J=\frac{3J(J+1)+S(S+1)-L(L+1)}{2J(J+1)} \quad \text{und}\quad M_J \in [-J,...,J]
+\end{equation}
+Dies ist der Zeemann-Effekt.
+\subsection{Kernspin}
+Ein weitere Einfluss kommt aus dem Kernspin $\vec{I}$. Er koppelt ebenfalls an $\vec{J}$ und erzeugt die Hyperfeinstruktur.
+\begin{equation}
+	\vec{F}=\vec{J} +\vec{I}
+\end{equation}
