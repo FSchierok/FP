@@ -1,13 +1,13 @@
-all: auswertung  VXX.pdf
+all: auswertung  V21.pdf
 
 TeXOptions = -lualatex \
 			 -interaction=nonstopmode \
 			 -halt-on-error \
 			 -output-directory=build
 
-VXX.pdf: main.tex auswertung.py
+V21.pdf: main.tex auswertung.py
 	latexmk $(TeXOptions) main.tex
-	mv build/main.pdf build/VXX.pdf
+	mv build/main.pdf build/V21.pdf
 
 document: main.tex
 	latexmk $(TeXOptions) main.tex
