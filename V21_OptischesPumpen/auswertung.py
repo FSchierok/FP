@@ -114,6 +114,20 @@ R = N1/N2
 print("Anteil von Rb87 in %:", 100*R/(R+1))
 print("Anteil von Rb85 in %:", 100*(1 - R/(R+1)))
 
+# quadratischer Zeeman-Effekt
+muB = 9.274009994 *1e-24 # J / T
+Bmax = 0.257*1e-3 # T
+Ehy85 = 4.53 * 1e-24 # J
+Ehy87 = 2.01 * 1e-24 # J
+
+print("lin85:",g2F*muB*Bmax, "J")
+print("lin87:",g1F*muB*Bmax, "J")
+print("quad85:", g2F*g2F*muB*muB*Bmax*Bmax*(-5)/Ehy85, "J")
+print("quad87:", g1F*g1F*muB*muB*Bmax*Bmax*(-5)/Ehy87, "J")
+print("lin/quad85:", g2F*muB*Bmax / (g2F**2 * muB**2 * Bmax**2 * (-5)/Ehy85))
+print("lin/quad87:", g1F*muB*Bmax / (g1F*g1F*muB*muB*Bmax*Bmax*(-3)/Ehy87))
+
+
 # Tabelle
 cap = r"Die aufgenommenen Stromstärken der beiden horizontalen Spulen und die korrespondierenden Magnetfelder bei der ersten Resonanzstelle in Abhängigkeit von der eingestellten Frequenz des Hochfrquenzfeldes. Die zur Sweep-Spule gehörigen Messdaten sind mit S und die zur Horizontal-Feld-Spule mit H gekennzeichnet."
 hr = [[r"Frequenz", r"Frequenz", r"Stromstärke", r"Stromstärke", r"Stromstärke", r"Stromstärke", r"Magnetfeld", r"Magnetfeld"], [r"$f\, /\mathrm{kHz}$", r"$\Delta f\, /\mathrm{kHz}$", r"$I_{1,\mathrm{S}}\, /\mathrm{mA}$","$\Delta I_{1,\mathrm{S}}\, /\mathrm{mA}$", r"$I_{1,\mathrm{H}}\, /\mathrm{mA}$", r"$\Delta I_{1,\mathrm{H}}\, /\mathrm{mA}$", r"$B_1 \, / \mathrm{µT}$", r"$\Delta B_1 \, / \mathrm{µT}$"]]
