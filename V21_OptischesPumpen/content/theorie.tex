@@ -31,9 +31,28 @@ Ein weitere Einfluss kommt aus dem Kernspin $\vec{I}$. Er koppelt ebenfalls an $
 $F$ läuft zwischen $J+I$ und $|J-I|$ und kann dementsprechend $2J+1$ bzw. $2I+1$ Werte annehmen. Die dadurch entstehenden Energieniveaus sind gegeben durch:
 \begin{equation}
 	U_\mathrm{HF}=g_F\mu_BB
+	\label{eqn:zeemann}
 \end{equation}
 mit
 \begin{equation}
 	g_F=g_J\frac{F(F+1)+J(J+1)-I(I+1}{2F(F+1)}
 	\label{eqn:g_F}
 \end{equation}
+\subsection{Optisches Pumpen}
+Im Folgenden wird ein Alkali-Atom ohne Drehimpuls angenommen. Es besitz somit einen Grundzustand ${}^2\mathrm{S}_\dfrac{1}{2}$ und die zwei ersten angeregten Zustände ${}^2\mathrm{P}_\dfrac{1}{2}$ und ${}^2\mathrm{P}_\dfrac{3}{2}$. Die möglichen Übergänge ergeben das $\mathrm{D}_1-\mathrm{D}_2$ Dublett.
+In ${}^2\mathrm{S}_\dfrac{1}{2}$ und ${}^2\mathrm{P}_\dfrac{1}{2}$ ist $J=\dfrac{1}{2}$ und daher $M_J auf \pm \dfrac{1}{2}$ beschrängt. Daraus können drei $\Delta M$ resultieren.
+\begin{description}
+	\item[$\Delta M=1$] Das Licht ist rechtszirkular polarisiert ($\sigma^{+}$)
+	\item[$\Delta M=-1$] Das Licht ist linkszirkular polarisiert ($\sigma^{-}$)
+	\item[$\Delta M=0$] Das Licht ist linear polarisiert (\pi)
+\end{description}
+Wenn nun mit rechtszirkular polarisiertes Licht angeregt wird, also $\Delta M=1$ gelten muss, ist nur der Übergang ${}^2\mathrm{S}_\dfrac{1}{2}, M_J=-\dfrac{1}{2}$ zu ${}^2\mathrm{P}_\dfrac{1}{2}, M_J=\dfrac{1}{2}$ möglich. Durch spontane Emission fallen die angeregten Elektronen dann zufällig auf die tieferen Niveaus zurück.
+Durch Wiederholung dieses Vorgangs wird ${}^2\mathrm{S}_\dfrac{1}{2}, M_J=-\dfrac{1}{2}$ also immer leerer und ${}^2\mathrm{S}_\dfrac{1}{2},M_J=\dfrac{1}{2}$ immer voller, entgegen der natürlichen Verteilung. Wenn keine Elektronen aus ${}^2\mathrm{S}_\dfrac{1}{2}, M_J=-\dfrac{1}{2}$ angeregt werden kann, wird kein Licht absorbiert, bzw die Transperenz nimmt zu.
+\subsection{Messung der Zeemannniveaus}
+Die angeregten Elektronen können über zwei Mechanismen in einen niedrigeren Zustand über gehen. Entweder über die spontane Emission oder über die induzierte Emission. Bei der letzteren kann ein Photon, das genau die Energiedifferenz der Energieniveaus besitz eben diesen Übergang anstoßen. Bei den in diesem Experiment untersuchten Energiedifferenzen ist die induzierte Emission deutlich überwiegend.
+\subsection{Quadratischer Zeemann-Effekt}
+Für größere Magnetfelder muss ein weitere Term in die Formel \eqref{eqn:zeemann} mit aufgenommen werden. Dadurch ergibt sich:
+\begin{equation}
+	U_\mathrm{HF}=g_F\mu_BB + g_F^2\mu_B^2B^2\frac{1-2M_F}{\Delta E_\mathrm{Hy}}
+\end{equation}
+mit der Hyperfeinstrukturaufspaltung $\Delta E_{Hy}$. Es fällt auch auf, dass $U_\mathrm{HF}$ jetzt von $M_F$ abhängt.
