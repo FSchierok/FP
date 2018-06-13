@@ -7,7 +7,7 @@ Die Elektronen in einem Atom können nur diskrete Energien annehmen. Die Besetzu
 	\frac{N_2}{N_1}=\frac{g_2}{g_1}\frac{\exp(-W_2k_\text{B}T)}{\exp(-W_1k_\text{B}T)}
 	\label{eqn:Boltzmann}
 \end{equation}
-Dabei ist $k_\text{B}$ die Boltzmannkonstante, $T$ die Temperatur und $g_i$ die statistischen Gewichte. Das optische Pumpen ermöglicht es diese natürliche Verteilung so anzuregen, das $N_2 > N_1$ gilt. Mit einem induzierten Strahlenübergang kann dann die Energiedifferenz $W_2-W_1$, die beim Rüchgang in die Boltzmannverteilung abgestrahlt wird, genau bestimmt werden.
+Dabei ist $k_\text{B}$ die Boltzmannkonstante, $T$ die Temperatur und $g_i$ die statistischen Gewichte. Das optische Pumpen ermöglicht es diese natürliche Verteilung so anzuregen, das $N_2 > N_1$ gilt. Mit einem induzierten Strahlenübergang kann dann die Energiedifferenz $W_2-W_1$, die beim Rückgang in die Boltzmannverteilung abgestrahlt wird, genau bestimmt werden.
 \subsection{Magnetische Momente}
 Da sowohl der Bahndrehimpuls $\vec{L}$ als auch der Spin $\vec{S}$ ein magnetisches Moment $\vec{\mu_L}$ bzw. $\vec{\mu_S}$ haben, hat auch der Gesamtdrehimpuls  $\vec{J}$ ein magnetisches Moment $\vec{\mu_J}$.
 \begin{align}
@@ -17,12 +17,14 @@ Dabei präzediert $\vec{\mu_J}$ um $\vec{J}$, und über die Zeit gemittelt versc
 Wenn ein äußeres Magnetfeld $B$ anliegt, präzediert $\vec{\mu_J}$ auch um die parallelen Anteile von $B$. Die so beeinflussten Energieniveaus werden mit der Quantenzahl $M_J$ beschrieben und folgen der Formel
 \begin{equation}
 	U_\text{mag} = M_J g_J \mu_\text{B}B
+	\label{ABC}
 \end{equation}
 mit
 \begin{equation}
-	g_J\approx \frac{(g_S+1)J(J+1)+(g_S+1)(S(S+1)-L(L+1)}{2J(J+1))} \quad \text{und}\quad M_J \in [-J,...,J]
+	g_J = \frac{(g_S+1)J(J+1)+(g_S-1)(S(S+1)-L(L+1)}{2J(J+1))} \quad \text{und}\quad M_J \in [-J,...,J],
+	\label{GHI}
 \end{equation}
-Diese Abhänigkeit der Energieniveaus von dem Magnetfeld bezeichnet man als Zeeman-Effekt.
+wobei $g_s \approx 2$ der anomale g-Faktor des Elektrons ist. Diese Abhängigkeit der Energieniveaus von dem Magnetfeld bezeichnet man als Zeeman-Effekt.
 \subsection{Kernspin}
 Ein weiterer Einfluss kommt aus dem Kernspin $\vec{I}$. Er koppelt ebenfalls an $\vec{J}$ und erzeugt dadurch die Hyperfeinstruktur.
 \begin{equation}
@@ -81,5 +83,6 @@ Die angeregten Elektronen können über zwei Mechanismen in einen niedrigeren Zu
 Für größere Magnetfelder muss ein weitere Term in die Formel \eqref{eqn:Zeeman} mit aufgenommen werden. Dadurch ergibt sich:
 \begin{equation}
 	\Delta U_\text{HF}=g_F\mu_BB + g_F^2\mu_B^2B^2\frac{1-2M_F}{\Delta E_\text{Hy}}
+	\label{quad}
 \end{equation}
 mit der Hyperfeinstrukturaufspaltung $\Delta E_{Hy}$. Es fällt auch auf, dass $U_\text{HF}$ jetzt von $M_F$ abhängt.

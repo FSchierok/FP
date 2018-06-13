@@ -10,7 +10,14 @@ In Abbildung \ref{fig:oszi1_2} ist eine typische Aufnahme eines Sweep-Durchgangs
 \label{fig:oszi1_2}
 \end{figure}
 
-Die Magnetfelder, bei denen zu den eingestellten Frequenzen Minima der Transparenz des Dampfes auftreten, sind in Abbildung \ref{fig:plot1} in Abhängigkeit von den jeweiligen Frequenzen dargestellt. Die dazu aufgenommenen Messdaten lassen sich den Tabellen \ref{tab:tab1} und \ref{tab:tab2} entnehmen, wobei die Ungenauigkeiten in den Frequenzen und Stromstärken auf Grundlage des Spiels an den Drehreglern der verwendeten Apparaturen abgeschätzt wurden. Die Magnetfelder wurden nach der \color{red}{Gleichung XYZ} ermittelt und die zugehörigen Fehler mittels Gauß'scher Fehlerfortpflanzung und der Programmbibliothek SciPy \cite{SciPy} bestimmt. Über eine lineare Regressionsgerade der Form $B(f) = a \cdot f + b$ werden die \color{red}{Gleichung ABC} überprüft und die entsprechenden Parameter bestimmt:
+Die Magnetfelder, bei denen zu den eingestellten Frequenzen Minima der Transparenz des Dampfes auftreten, sind in Abbildung \eqref{fig:plot1} in Abhängigkeit von den jeweiligen Frequenzen dargestellt. Die dazu aufgenommenen Messdaten lassen sich den Tabellen \ref{tab:tab1} und \ref{tab:tab2} entnehmen, wobei die Ungenauigkeiten in den Frequenzen und Stromstärken auf Grundlage des Spiels an den Drehreglern der verwendeten Apparaturen abgeschätzt wurden. Die Magnetfelder wurden nach der bekannten Beziehung 
+
+\begin{equation}
+	B = \mu_0 \frac{8}{\sqrt{125}} \frac{N \cdot I}{R}
+	\label{helm}
+\end{equation}
+
+für das Magnetfeld in einer Helmholtzspule in Abhängigkeit von deren Radius $R$ und Strom $I$ zur Magnetfelderzeugung  ermittelt und die zugehörigen Fehler mittels Gauß'scher Fehlerfortpflanzung und der Programmbibliothek SciPy \cite{SciPy} bestimmt. Über eine lineare Regressionsgerade der Form $B(f) = a \cdot f + b$ werden die \eqref{ABC} überprüft und die entsprechenden Parameter bestimmt:
 
 \begin{figure}
 	\centering
@@ -34,14 +41,14 @@ Da der Versuchsaufbau in der Horizontalen parallel zu den magnetischen Feldlinie
 	B_\text{Erde,\,hor} = \SI{45.7\pm 0.6}{\micro \tesla}.
 \end{equation}
 
-Die Steigung der Regressionsgeraden ist nach \color{red}{Gleichung ABC} antiproportional zum gesuchten Landé-Fektor $g_F$ der beiden Isotope. Mit $g_F = \frac{h}{\mu_B} \frac{1}{a}$ ergibt sich für die beiden Isotope:
+Die Steigung der Regressionsgeraden ist nach \eqref{ABC} antiproportional zum gesuchten Landé-Faktor $g_F$ der beiden Isotope. Mit $g_F = \frac{h}{\mu_B} \frac{1}{a}$ ergibt sich für die beiden Isotope:
 
 \begin{eqnarray}
 	g_{F,1} = \SI{0.505 \pm 0.005},\\
 	g_{F,2} = \SI{0.337 \pm 0.002}.
 \end{eqnarray}
 
-Nun lässt sich der Kernspin der beiden Isotope durch \color{red}{Gleichung DEF} bestimmen, wobei der Landé-Faktor $g_J$ des Elektrons benötigt wird. Dieser kann nach \color{red}{Gleichung GHI} durch Einsetzen der Quantenzahlen $S = \frac{1}{2}, L = 0$ und $J = \frac{1}{2}$ berechnet werden. Wird $F = I + J$ verwendet\footnote{$F$ nimmt diesen maximalen Wert an, da nur für das Niveau mit dem höchstmöglichen $m_F$ kein Übergang durch das optische Pumpen möglich ist.}, ergibt sich die Relation
+Nun lässt sich der Kernspin der beiden Isotope durch \eqref{eqn:g_F} bestimmen, wobei der Landé-Faktor $g_J$ des Elektrons benötigt wird. Dieser kann nach \eqref{GHI} durch Einsetzen der Quantenzahlen $S = \frac{1}{2}, L = 0$ und $J = \frac{1}{2}$ berechnet werden. Wird $F = I + J$ verwendet\footnote{$F$ nimmt diesen maximalen Wert an, da nur für das Niveau mit dem höchstmöglichen $m_F$ kein Übergang durch das optische Pumpen möglich ist.}, ergibt sich die Relation
 
 \begin{equation}
 	I = \frac{1}{2} \left(\frac{g_J}{g_F} - 1\right)
@@ -81,7 +88,7 @@ Es ergibt sich das Verhältnis $R = \frac{P_{\text{Rb}87}}{P_{\text{Rb}85}} = \f
 folgt.
 
 Der quadratische Zeeman-Effekt ist in diesem Versuch nicht von Relevanz. Dies lässt sich 
-durch die folgende kurze Rechnung nach Gleichung IJK demonstrieren: Da der quadratische 
+durch die folgende kurze Rechnung nach Gleichung \eqref{quad} demonstrieren: Da der quadratische 
 Zeeman-Effekt erst für große Magnetfelder $B$ relevant wird, wird für die Abschätzung das 
 größte in diesem Versuch berechnete Magnetfeld von $B = \SI{257}{\micro \tesla}$ verwendet. Für die 
 Landé-Faktoren werden die ermittelten Werte verwendet. Für die Quantenzahl $m_F$ werden auch
