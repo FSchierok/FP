@@ -1,5 +1,6 @@
 \section{Theorie}
 \label{sec:Theorie}
+Im folgenden werden die Grundlagen der Vakuumtechnik erklärt, sowie einige Begriffe definiert. Diese Informationen stammen, falls nicht explizit anders gesagt, von Pfeiffer Vacuum\cite{Pfeiffer}.
 \subsection{Vakuum}
 Ein Vakuum ist ein Volumen, das frei von Materie ist. Im Umgangssprachlichen ist damit oft Luftleer gemeint, in wissenschaftlichen Sinne sind aber auch andere
 Gase oder Partikel gemeint. Da es nicht möglich ist ein perfektes Vakuum zu erstellen, wird zwischen verschiedenen Güteklassen unterschieden. Diese
@@ -21,7 +22,50 @@ Die einfachste Besceschreibung für Gase ist die ideale Gas Gleichung:
 Diese gilt, wenn das Gas aus identischen Punktmassen besteht, diese nur über elastische Stöße wecheslwirken und das Gas in einem Volumen $V$ eingeschlossen
 ist, mit dessen Begrenzung auch nur elastich gestoßen wird. Aus dieser Formel ist auch nochmal ersichtlich, dass $p=0$ nicht möglich ist, da dann $T=0$ gelten
 müsste, was nach dem 3. Hauptsatz der Thermodynamik Unerreichbar ist. Es lässt sich auch das Gesetz von Boyle-Mariotte herleiten, das besagt, dass bei
- konstanter Temperatur $p$ antiproportional zu $V$ ist.
+ konstanter Temperatur $p$ antiproportional zu $V$ ist. Zudem kann zu der Teilchendichte umgestellt werden.
+ \begin{equation}
+ 	\frac{N}{V}=\frac{k_\text{B}T}{p}
+ \end{equation}
+ \cite{TuSKierfeld}
 \subsection{Druck}
 Der Druck gibt die Kraft an, die ein Gas auf sein Behältnis ausübt. Er wird in $\si{\pascal}=\si{\newton \per \meter \squared}$ gemessen. Falls ein Gasgemisch
- vorliegt, steht jeder Gasanteil unter einem partial Druck $p_i$.
+vorliegt, steht jeder Gasanteil unter einem partial Druck $p_i$.
+\subsection{Mittlere freie Weglänge}
+Die mittlere freie Weglänge gibt an, wie weit ein Teilchen sich statistisch bewegen kann, bis es mit einem anderen Teilchen wecheslwirkt.
+Sie wird von der Formel
+\begin{equation}
+	l=\frac{k_\text{B}T}{\sqrt{2}\pi p d^2}
+\end{equation}
+beschrieben. Hierbei ist $d$ der Moleküldurchmesser. Es fällt auf, dass $l$ Temperaturabhänig ist.
+
+\subsection{Drehschieberpumpe}
+Eine Drehschiberpumpe besteht aus einem Zylindrischen Hohlraum, in dem exzentrisch ein Rotor gelagert ist. An diesem Rotor sind zwei oder drei Drehschieber,
+die durch eine Feder den variablen Abstand zur Außenwand abschließen. Der Pumpeneinzug ist mit dem großen Volumen verbunden, der Ausstoß mit dem Kleinen.
+Wenn Rotor nun gedreht wird, strömt Gas in die große Kammer ein. Dieses Gas wird dann von dem nachfolgenden Drehschieber isoliert. Das eingeschlossene Gas wird
+durch die Drehung immer weiter komprimiert, bis der Überdruck ausreicht um das Auslassventil zu öffnen.
+\subsection{Turbomolekularpumpe}
+Eine Turbomolekularpumpe besteht aus einem Hohlzylinder, in dem abwechselnd Rotorn und Stratorn sind. Dabei die Rotorblätter in Drehrichtung gekippt und die
+Stratorblätter entgegen. Wenn nun ein Molekül einen Rotor trifft, wird es in Drehrichtung beschleunigt. Das darauf folgende Stratorblatt lenkt das Molekül dann
+in den nächsten Rotor. Es ist für die Funktionsweise wichtig, dass Geschwindigkeit der Rotorblätter größer ist, als die mittlere Molekulargeschwindigkeit das
+Gases. Zudem müssen die Abstände der Rotoren in der Größenordnung der mittleren freien Weglänge der Gasmoleküüle liegen, da die Bewegung sonst zum erliegent
+kommt.
+\subsection{Vakuummeter}
+Bei einem Vakuummeter wird zwischen einer Kathode und einer Anode eine Spannung von ca $\SI{2}{\kilo \volt}$ angelegt. Dadurch werden Elektronen
+beschleunigt, die auf ihrem Weg mit Gasteilchen stoßen und diese ionisieren. Diese geladenen Teilchen werden zu der Kathode beschleunigt und es lässt sich ein
+Strom messen. Dieser ist abhänig von dem Druck bzw. der Anzahl an Stößen, die ausgeführt werden. Es wird unterschieden zwischen Kaltkathoden, bei den bereits
+vorhandene Elektronen beschleunigt werden, und Glükathoden, bei denen mit dem Glühelerktrischen-Effekt Elektronen aus der Kathode ausgelöst werden.
+\subsection{Generelle Definitionen}
+\begin{description}
+	\item[Absorbtion] Aufnahme eines Teilchens in einen Festkörper
+	\item[Adsorbtion] Ablagerung eines Teilchens auf der Oberfläche eines Festkörpers
+	\item[Desorbtion] Ablösen eines Teilchens von der Oberfläche eines Festkörpers
+	\item[Diffusion] Vermischung von Gasen bzw. Flüssigkeiten durch Molekularbewegung
+	\item[Laminare Stömung] Wirbelfreie Strömung
+	\item[Saugleistung] $\dot{Q}$, Stoffmenge pro Zeit
+
+\end{description}
+\subsection{Leitwert}
+Wenn eine Pumpe nicht direkt an das Experiment angeschlossen werden kann, muss ein Rohrsystem verwendet werden. Dieses hat einen negativen Effekt auf das Saugvermögen der Pumpe. Der Kehrwert dieses Wiederstandes wird als Leitwert bezeichnet.
+\begin{equation}
+	\frac{1}{S_\text{eff}}=\frac{1}{S_\text{Pumpe}}+\frac{1}{L_\text{Rohr}}
+\end{equation}
