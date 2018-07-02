@@ -50,10 +50,20 @@ in den nächsten Rotor. Es ist für die Funktionsweise wichtig, dass Geschwindig
 Gases. Zudem müssen die Abstände der Rotoren in der Größenordnung der mittleren freien Weglänge der Gasmoleküüle liegen, da die Bewegung sonst zum erliegent
 kommt.
 \subsection{Vakuummeter}
+\subsubsection{Kalt-/Glühkathoden}
 Bei einem Vakuummeter wird zwischen einer Kathode und einer Anode eine Spannung von ca $\SI{2}{\kilo \volt}$ angelegt. Dadurch werden Elektronen
 beschleunigt, die auf ihrem Weg mit Gasteilchen stoßen und diese ionisieren. Diese geladenen Teilchen werden zu der Kathode beschleunigt und es lässt sich ein
 Strom messen. Dieser ist abhänig von dem Druck bzw. der Anzahl an Stößen, die ausgeführt werden. Es wird unterschieden zwischen Kaltkathoden, bei den bereits
 vorhandene Elektronen beschleunigt werden, und Glükathoden, bei denen mit dem Glühelerktrischen-Effekt Elektronen aus der Kathode ausgelöst werden.
+\subsubsection{??}
+Beim ??-Vakuummeter wird die Abhänigkeit der Wärmeleitfähigkeit vom Druck ausgenutzt. Dazu wird ein Draht elektrisch erwärmt. Dieser gibt ein Teil der
+Wärmeenergie an das umgebene Gas ab, der Rest staut sich im Draht auf. Da bei niedriegeren Druck die Wärmeleitung abnimmt, wird der Draht umso wärmer, je
+geringer der Umgebungsdruck ist. Die Temperatur des Drahtes kann über sein elektrischen Wiederstande gemessen werden.
+\subsection{Lecks}
+Ein Vakuum kann auf zwei Arten Lecks haben, reale und virtuelle. Bei realen Lecks kann Gas von außerhalb des Aufbaus in den Rezipenten eindringen, zB. durch
+nicht richtig abgedichtete Flansche. Diese Lecks kann man einfach Abdichten, wenn man sie lokalisiert hat. Bei virtuellen Lecks strömten Teilchen aus dem
+Aufbau selber in den Rezipenten, zB. Einschlüsse in Metallteilen. Diese lassen sich in den meisten Fällen nicht abdichten, sondern müssen bei der Produktion
+beseitigt werden.
 \subsection{Generelle Definitionen}
 \begin{description}
 	\item[Absorbtion] Aufnahme eines Teilchens in einen Festkörper
@@ -62,10 +72,20 @@ vorhandene Elektronen beschleunigt werden, und Glükathoden, bei denen mit dem G
 	\item[Diffusion] Vermischung von Gasen bzw. Flüssigkeiten durch Molekularbewegung
 	\item[Laminare Stömung] Wirbelfreie Strömung
 	\item[Saugleistung] $\dot{Q}$, Stoffmenge pro Zeit
-
 \end{description}
 \subsection{Leitwert}
-Wenn eine Pumpe nicht direkt an das Experiment angeschlossen werden kann, muss ein Rohrsystem verwendet werden. Dieses hat einen negativen Effekt auf das Saugvermögen der Pumpe. Der Kehrwert dieses Wiederstandes wird als Leitwert bezeichnet.
-\begin{equation}
-	\frac{1}{S_\text{eff}}=\frac{1}{S_\text{Pumpe}}+\frac{1}{L_\text{Rohr}}
-\end{equation}
+Nur sehr selten wird eine Pumpe direkt an den Versuch angeschlossen, in der Regel wird ein Schlauchsystem eingesetzt. Dieses hat neben der Volumensvergrößerung
+noch mehr negative Auswirkungen auf das reale Saugvermögen der Pumpe. Es entsteht ein Druckgefälle zur Pumpe hin, bedingt durch den Strömungswiederstand des Schlauchsystems. In der Regel wird der Kehrwert dieses Wiederstandes benutzt, der Leitwert. Der Leitwert verhält sich analog zu $\dfrac{1}{R}$ in elektrischen
+Systemen:
+\begin{align}
+	L_\text{ges,parallel}=&\sum_i L_i \\
+	L_\text{ges,reihe}=&\sum_i \frac{1}{L_i}
+\end{align}
+Die Abhänigkeit des Leitwertes vom Druck lässt sich in drei Bereiche aufteilen, Abhänig von der Strömungsart. Bei viskoer Strömung ist der Leitwert linear zum
+Druck und bei molekularer Strömung konstant. Der Übergangsbereich lässt sich mit der Summe des laminaren und des molekularen Leitwertes annähern.
+Es gilt für Raumtemperatur:
+\begin{align}
+	L_\text{Zylinder,laminar}=& \num{1.35}\frac{d^4}{l}\overline{p} \\
+	L_\text{Zylinder, molekular}=& \num{11.6}\frac{\pi d^3}{3l}
+\end{align}
+Dabei ist $l$ die Rohrlänge und $d$ der Rohrdurchmesser und $\overline{p}$ der mittlere Druck im Rohr.
