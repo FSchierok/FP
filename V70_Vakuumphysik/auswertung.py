@@ -446,7 +446,11 @@ S_turboLeck005 = Q_turboLeck005 / p0_turbo005
 S_turboLeck015 = Q_turboLeck015 / p0_turbo015
 
 
-print(a_turboLeck01/ p0_turbo01)
-print(a_turboLeck02/ p0_turbo02)
-print(a_turboLeck005/ p0_turbo005)
-print(a_turboLeck015/ p0_turbo015)
+print(S_drehLeck01)
+print(S_drehLeck04)
+print(S_drehLeck06)
+print(S_drehLeck1)
+print(S_turboLeck01)
+print(S_turboLeck02)
+print(S_turboLeck005)
+print(S_turboLeck015)
