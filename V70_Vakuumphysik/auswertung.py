@@ -30,6 +30,36 @@ def fehler(x):
 def lin(x, a, b):
     return a*x + b
 
+# Volumenbestimmung
+
+meand, deltad, meanz, deltaz = np.genfromtxt("data/vol.txt", unpack=True)
+d = unp.uarray(meand, deltad)
+z = unp.uarray(meanz, deltaz)
+vol =  3.141592/4 * d**2 * z *1e-6
+
+vol_Tank = unp.uarray(9.5, 0.8)
+vol_Drehschieberschlauch = vol[0]
+vol_Adapter = vol[1]
+vol_ersteKreuzung = vol[2]
+vol_PiraniT = vol[3]
+vol_offen = vol[4]
+vol_geschlossen = vol[5]
+vol_Turbo = vol[6]
+vol_KathodenT = vol[7]
+vol_komischeKreuzung = vol[8] + vol[9]
+vol_kurzerSchlauch = vol[10]
+
+print(vol_komischeKreuzung)
+print(vol)
+
+vol_Drehmessung = vol_Drehschieberschlauch + vol_Adapter + vol_ersteKreuzung + vol_geschlossen + vol_PiraniT + 2*vol_KathodenT + vol_Tank + vol_komischeKreuzung + 2*vol_offen + vol_kurzerSchlauch
+vol_Turbomessung = vol_Turbo + 2*vol_KathodenT + vol_komischeKreuzung + vol_Tank + vol_offen + 2* vol_geschlossen
+
+print(vol_Drehmessung)
+print(vol_Turbomessung)
+
+
+
 # Drehschieber Evakuierungskurve
 drehschieber_pmess, drehschieber_t1, drehschieber_t2, drehschieber_t3, drehschieber_t4, drehschieber_t5 = np.genfromtxt("data/drehschieber.txt", unpack=True)
 drehschieber_meant= 0.2 * (drehschieber_t1 + drehschieber_t2 + drehschieber_t3 + drehschieber_t4 + drehschieber_t5)
@@ -42,7 +72,7 @@ drehschieber_errt = np.sqrt(1/(5*(5-1)) * ((drehschieber_meant - drehschieber_t1
 drehschieber_t = unp.uarray(drehschieber_meant, drehschieber_errt)
 drehschieber_pende = 0.05 #mbar
 drehschieber_pendeerr = 0.005 #mbar
-drehschieber_pstart = 1013 #mbar
+drehschieber_pstart = 1017 #mbar
 drehschieber_pstarterr = 3 #mbar
 drehschieber_errpmess = 0.10 * drehschieber_pmess
 drehschieber_p = unp.uarray(drehschieber_pmess, np.sqrt(
@@ -300,8 +330,8 @@ plt.grid()
 plt.xlim(-3, 63)
 plt.ylim(-0.1, 4.5)
 plt.xlabel(r"$t \, / \, \text{s}$")
-plt.ylabel(r"$p(t) \, / \, \text{mbar}$")
-plt.title(r"$p_0 = 0.05 \, \text{mbar}$")
+plt.ylabel(r"$p(t) \, / \, \text{µbar}$")
+plt.title(r"$p_0 = 0.05 \, \text{µbar}$")
 
 
 # Leckratenmessung Turbo 0.1 mbar
@@ -328,8 +358,8 @@ plt.grid()
 plt.xlim(-2, 43)
 plt.ylim(-0.3, 11.7)
 plt.xlabel(r"$t \, / \, \text{s}$")
-plt.ylabel(r"$p(t) \, / \, \text{mbar}$")
-plt.title(r"$p_0 = 0.1 \, \text{mbar}$")
+plt.ylabel(r"$p(t) \, / \, \text{µbar}$")
+plt.title(r"$p_0 = 0.1 \, \text{µbar}$")
 
 
 # Leckratenmessung Turbo 0.15 mbar
@@ -356,8 +386,8 @@ plt.grid()
 plt.xlim(-1, 30)
 plt.ylim(-0.3, 11.2)
 plt.xlabel(r"$t \, / \, \text{s}$")
-plt.ylabel(r"$p(t) \, / \, \text{mbar}$")
-plt.title(r"$p_0 = 0.15 \, \text{mbar}$")
+plt.ylabel(r"$p(t) \, / \, \text{µbar}$")
+plt.title(r"$p_0 = 0.15 \, \text{µbar}$")
 
 
 # Leckratenmessung Turbo 0.2 mbar
@@ -384,8 +414,8 @@ plt.grid()
 plt.xlim(-0.8, 21)
 plt.ylim(-0.2, 11.4)
 plt.xlabel(r"$t \, / \, \text{s}$")
-plt.ylabel(r"$p(t) \, / \, \text{mbar}$")
-plt.title(r"$p_0 = 0.2 \, \text{mbar}$")
+plt.ylabel(r"$p(t) \, / \, \text{µbar}$")
+plt.title(r"$p_0 = 0.2 \, \text{µbar}$")
 plt.tight_layout()
 plt.savefig("img/turboLeck.pdf")
 
@@ -394,15 +424,18 @@ plt.savefig("img/turboLeck.pdf")
 
 # Gesamtauswertung
 # Evakuierung
-Vdreh = unp.uarray(12.0, 0.9) # Liter
+Vdreh = vol_Drehmessung # Liter
 a_dreh1 = unp.uarray(params_drehschieber_1[0], error_drehschieber1[0])
 a_dreh2 = unp.uarray(params_drehschieber_2[0], error_drehschieber2[0])
 a_dreh3 = unp.uarray(params_drehschieber_3[0], error_drehschieber3[0])
+b_dreh1 = unp.uarray(params_drehschieber_1[1], error_drehschieber1[1])
+b_dreh2 = unp.uarray(params_drehschieber_2[1], error_drehschieber2[1])
+b_dreh3 = unp.uarray(params_drehschieber_3[1], error_drehschieber3[1])
 S_dreh1 = - Vdreh * a_dreh1
 S_dreh2 = - Vdreh * a_dreh2
 S_dreh3 = - Vdreh * a_dreh3
 
-Vturbo = unp.uarray(12.5, 0.9) # Liter
+Vturbo = vol_Turbomessung # Liter
 a_turbo1 = unp.uarray(params_turbo_1[0], error_turbo1[0])
 a_turbo2 = unp.uarray(params_turbo_2[0], error_turbo2[0])
 S_turbo1 = - Vturbo * a_turbo1
@@ -422,6 +455,10 @@ a_drehLeck01 = unp.uarray(params_drehLeck01[0], error_drehLeck01[0])
 a_drehLeck04 = unp.uarray(params_drehLeck04[0], error_drehLeck04[0])
 a_drehLeck06 = unp.uarray(params_drehLeck06[0], error_drehLeck06[0])
 a_drehLeck1 = unp.uarray(params_drehLeck1[0], error_drehLeck1[0])
+b_drehLeck01 = unp.uarray(params_drehLeck01[1], error_drehLeck01[1])
+b_drehLeck04 = unp.uarray(params_drehLeck04[1], error_drehLeck04[1])
+b_drehLeck06 = unp.uarray(params_drehLeck06[1], error_drehLeck06[1])
+b_drehLeck1 = unp.uarray(params_drehLeck1[1], error_drehLeck1[1])
 a_turboLeck01 = unp.uarray(params_turboLeck01[0], error_turboLeck01[0])
 a_turboLeck02 = unp.uarray(params_turboLeck02[0], error_turboLeck02[0])
 a_turboLeck005 = unp.uarray(params_turboLeck005[0], error_turboLeck005[0])
@@ -445,12 +482,43 @@ S_turboLeck02 = Q_turboLeck02 / p0_turbo02
 S_turboLeck005 = Q_turboLeck005 / p0_turbo005
 S_turboLeck015 = Q_turboLeck015 / p0_turbo015
 
-
+print(a_drehLeck01)
+print(a_drehLeck04)
+print(a_drehLeck06)
+print(a_drehLeck1)
+print(b_drehLeck01)
+print(b_drehLeck04)
+print(b_drehLeck06)
+print(b_drehLeck1)
+print(Q_drehLeck01)
+print(Q_drehLeck04)
+print(Q_drehLeck06)
+print(Q_drehLeck1)
 print(S_drehLeck01)
 print(S_drehLeck04)
 print(S_drehLeck06)
 print(S_drehLeck1)
-print(S_turboLeck01)
-print(S_turboLeck02)
-print(S_turboLeck005)
-print(S_turboLeck015)
+
+#------------------------------------------------------------------------------
+
+# Tabellen
+
+# cap = r"Die aufgezeichneten Drücke $p(t)$ und deren logarithmierte Zeitentwicklung für die Drehschieberpumpe."
+# hr = [r"$p(t) /\mathrm{mbar}$", r"$\ln \frac{p(t) - p_\text{E}}{p_0 - p_\text{E}}$", r"$t_1\, /\mathrm{s}$", r"$t_2\, /\mathrm{s}$", r"$t_3\, /\mathrm{s}$", r"$t_4\, /\mathrm{s}$", r"$t_5\, /\mathrm{s}$", r"$\bar{t}\, /\mathrm{s}$", r"$\Delta t\, /\mathrm{s}$"]
+# with open("tab/tab2.tex", "w") as file:
+#     file.write(matrix2latex([noms(drehschieber_p), np.log((noms(drehschieber_p)-drehschieber_pende)/(drehschieber_pstart-drehschieber_pende)), stds(drehschieber_p), drehschieber_t1, drehschieber_t2, drehschieber_t3, drehschieber_t4, drehschieber_t5, drehschieber_meant, drehschieber_errt], headerRow=hr, alignment="c", caption=cap, label=r"tab2", transpose=False))
+
+# cap = r"Aufgenommene Messdaten der Leckratenbestimmung der Drehschieberpumpe."
+# hr = [r"$p(t) /\mathrm{mbar}$", r"$t_1\, /\mathrm{s}$", r"$t_2\, /\mathrm{s}$", r"$t_3\, /\mathrm{s}$", r"$\bar{t}\, /\mathrm{s}$", r"$\Delta t\, /\mathrm{s}$"]
+# fmt = ["%.1f", "%.0f", "%.0f", "%.0f", "%.1f", "%.1f"]
+# with open("tab/tab3.tex", "w") as file:
+#     file.write(matrix2latex([noms(drehLeck01_p), drehLeck01_t1, drehLeck01_t2, drehLeck01_t3, drehLeck01_meant, drehLeck01_errt], headerRow=hr, alignment="c", caption=cap, label=r"tab3", transpose=False, formatColumn = fmt))
+#
+# with open("tab/tab3_2.tex", "w") as file:
+#     file.write(matrix2latex([noms(drehLeck04_p), drehLeck04_t1, drehLeck04_t2, drehLeck04_t3, drehLeck04_meant, drehLeck04_errt], headerRow=hr, alignment="c", caption=cap, label=r"tab3", transpose=False, formatColumn = fmt))
+#
+# with open("tab/tab3_3.tex", "w") as file:
+#     file.write(matrix2latex([noms(drehLeck06_p), drehLeck06_t1, drehLeck06_t2, drehLeck06_t3, drehLeck06_meant, drehLeck06_errt], headerRow=hr, alignment="c", caption=cap, label=r"tab3", transpose=False, formatColumn = fmt))
+#
+# with open("tab/tab3_4.tex", "w") as file:
+#     file.write(matrix2latex([noms(drehLeck1_p), drehLeck1_t1, drehLeck1_t2, drehLeck1_t3, drehLeck1_meant, drehLeck1_errt], headerRow=hr, alignment="c", caption=cap, label=r"tab3", transpose=False, formatColumn = fmt))

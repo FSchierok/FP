@@ -1,0 +1,12 @@
+#d _  d   h _   h   Bezeichnung
+29.2  2   1210  20  #Schlauch an Drehschieberpumpe
+12    1   60    1   #Adapter zwischen Drehschieberpumpenschlauch und 1. Kreuzung
+12    1   148   1   #1. Kreuzung
+12    1   115   2   #T-Stück an 1. Kreuzung
+15.5  1   77.5  1   #offener Absperrhahn
+15.5  1   26    1   #geschlossener Absperrhahn
+80    1   144.6 1   #Turbopumpe
+40    1   220   2   #T-Stück an Turbopumpe (mit Heißkathode) und T-Stück an diesem T-Stück mit Kaltkathode
+40    1   130   1   #Kreuzung (Teil mit größerem Durchmesser) direkt am Rezipienten
+15    1   65    1   #Kreuzung (Teil mit kleinerem Durchmesser) direkt am Rezipienten
+16    1   430   10  #Schlauch zwischen den beiden Kreuzungen
