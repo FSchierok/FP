@@ -22,15 +22,27 @@ from scipy.optimize import curve_fit
 import scipy.constants as const
 import matplotlib.pyplot as plt
 import math as m
-
+from sklearn import datasets
 
 def fehler(x):
     return np.std(x, ddof=1) / len(x)
 
+from sklearn import svm
+from sklearn import datasets
+clf = svm.SVC()
+iris = datasets.load_iris()
+X, y = iris.data, iris.target
+clf.fit(X, y)
 
-# Import
-luft = np.genfromtxt("data/luft.txt", unpack=True)
-glas = np.genfromtxt("data/glas.txt", unpack=True)
+
+import pickle
+s = pickle.dumps(clf)
+clf2 = pickle.loads(s)
+clf2.predict(X[0:1])
+
+y[0]
+
+
 
 # Daten einlesen und ausgeben:
 # x = np.genfromtxt("data/x.txt", unpack=True) [Skalar oder Vektor]
