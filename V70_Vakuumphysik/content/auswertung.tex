@@ -1,130 +1,205 @@
 \section{Auswertung}
 
-	\subsection{Fehlerrechnung}
-	
-		Die Fortpflanzung von Messungenauigkeiten für mehrere unabhängige Fehler wird durch die Gaußsche Fehlerfortpflanzung
-		
-		\begin{equation}
-			\Delta f = \sqrt{\sum_{i \, = \, 1}^{n} \, \left(\frac{\partial f}{\partial x_i} \, \Delta x_i\right)^2}
-			\label{fehler}
-		\end{equation}
-		
-		beschrieben. Dabei gibt $\Delta x$ die Unsicherheit des arithmetischen Mittelwerts $\bar{x}$ einer Observablen $x$ an:
-		
-		\begin{equation}
-			\Delta x = \frac{1}{\sqrt{n}} \sqrt{\frac{1}{n-1} \sum_{i \, = \, 1}^{n} \, \left(\bar{x}- x_i\right)^2}.
-		\end{equation}
-		
-		Die Zahl $n$ gibt die Anzahl der unabhängigen Messungen an.
+\subsection{Fehlerrechnung}
+
+Die Fortpflanzung von Messungenauigkeiten für mehrere unabhängige Fehler wird durch die Gaußsche Fehlerfortpflanzung
+
+\begin{equation}
+\Delta f = \sqrt{\sum_{i \, = \, 1}^{n} \, \left(\frac{\partial f}{\partial x_i} \, \Delta x_i\right)^2}
+\label{fehler}
+\end{equation}
+
+beschrieben. Dabei gibt $\Delta x$ die Unsicherheit des arithmetischen Mittelwerts $\bar{x}$ einer Observablen $x$ an:
+
+\begin{equation}
+\Delta x = \frac{1}{\sqrt{n}} \sqrt{\frac{1}{n-1} \sum_{i \, = \, 1}^{n} \, \left(\bar{x}- x_i\right)^2}.
+\end{equation}
+
+Die Zahl $n$ gibt die Anzahl der unabhängigen Messungen an.
 
 
-	\subsection{Bestimmung des Volumens des Versuchaufbaus}
-	
-		Es wird angenommen, dass alle verwendeten Komponenten zylindrisch sind. Das Volumen eines Zylinders berechnet sich durch
-		
-		\begin{equation}
-			V_\text{zyl} = \frac{\pi d^2 z}{4},
-		\end{equation}
-		
-		wobei $d$ den Durchmesser des Zylinders und $z$ dessen Höhe bezeichnet. Mit der Fehlerfortpflanzung \eqref{fehler} folgt:
-		
-		\begin{equation}
-			\Delta V_\text{zyl} = \frac{\pi}{4} \sqrt{(2 d z \Delta d)^2 + (d^2 \Delta z)^2}.
-		\end{equation}
-		
-		Die gemessenen Durchmesser $d$ und Höhen $z$ sowie die abgeschätzten, zugehörigen Unsicherheiten $\Delta d$ und $\Delta z$ der verwendeten Komponenten lassen sich der Tabelle \ref{tab1} entnehmen. Die Angabe über das Volumen des Tanks wurden der Versuchsanleitung \cite{V70} entnommen; die Maße der Turbomolekularpumpe fanden sich in dem beim Versuch ausliegenden Bauplänen des Pumpen-Herstellers. In der letzten Spalte wird angegeben, ob und wie oft das beschriebene Bauteil bei der Vermessung der Drehschieberpumpe (\enquote{D}) bzw. der Turbomolekularpumpe (\enquote{T}) verwendet wurde. Die Gesamtvolumina für beide Versuchsteile ergeben sich durch Addition der Teilvolumina, wobei die Ungenauigkeit einer Summe von fehlerbehafteten Volumina $V_1$ und $V_2$ gegeben ist durch $\Delta (V_1 + V_2) = \sqrt{\left(\Delta V_1^2 + \Delta V_2^2\right)}$:
-		
-		\begin{align}
-			V_\text{Dreh} &= \SI{11.2+-0.8}{\litre}\\
-			V_\text{Turbo} &= \SI{11.0+-0.8}{\litre}
-		\end{align}
-		
-		\include{tab/tab1}
-		
-	\subsection{Messung der Sauggeschwindigkeit der Drehschieberpumpe}
-		
-		\subsubsection{Aufnahme der Evakuierungskurve der Drehschieberpumpe}
-			
-			Die Messwerte des Drucks $p(t)$ in Abhängigkeit von der Zeit sind in Tabelle xyz mit den aufgelistet. Als Messungenauigkeit wird ein relativer Fehler von 10\% angesetzt. Der Umgebungsdruck wird nach dem Wetterbericht des Tages der Versuchsdurchführung \cite{wetter} auf $p_0 = \SI{1017 +-3}{\milli \bar}$ abgeschätzt. Als minimaler, mit der Pumpe erreichbarer Druck wurde $p_\text{E} = \SI{0.05+-0.005}{\milli \bar}$ gemessen. Es wird ein exponentieller Abfall des Drucks erwartet. Eine Ausgleichsrechnung für die logarithmierten Messwerte
-			
-			\begin{align}
-				f &= a \cdot t + b \quad \text{mit} \quad f = \ln \left(\frac{p(t) -p_\text{E}}{p_0 - p_\text{E}}\right)\\
-				\Delta f &= \sqrt{\left(\frac{\Delta p(t)}{p-p_\text{E}}\right)^2 + \left(\frac{\Delta p_0}{p_0 - p_\text{E}}\right)^2 + \left(\frac{p- p_0}{(p(t) - p_\text{E}) (p_0 - p_\text{E})} \Delta p_\text{E}\right)^2}
-			\end{align}
-			
-			ergibt die Sauggeschwindigkeit
-			
-			\begin{align}
-				S &= - a \cdot V_\text{Dreh}\\
-				\Delta S &= \sqrt{\left(a \Delta V_\text{Dreh}\right)^2 + \left(V_\text{Dreh} \Delta a\right)^2}.
-			\end{align}
-			
-			Es stellt sich heraus, dass drei in guter Näherung lineare Abschnitte der logarithmierten Evakuierungskurve gefunden werden können (s. Abbildung xyz). Die für diese Bereiche berechneten Sauggeschwindigkeiten lassen sich der Tabelle xyz entnehmen.
-			
-			\include{tab/tab2}
-			
-			\include{tab/tab3}
-			
-			\begin{figure}
-			\centering
-			\includegraphics[width=\linewidth]{img/drehschieber}
-			\caption{Evaluierungskurve der Drehschieberpumpe}
-			\label{fig:drehschieber}
-			\end{figure}
+\subsection{Bestimmung des Volumens des Versuchaufbaus}
 
-			
-		\subsubsection{Leckratenmessung der Drehschieberpumpe}
-		
-			Die aufgenommenen Daten der Leckratenmessung lassen sich der Tabelle xyz entnehmen. Eine lineare Regression mit
-			
-			\begin{equation}
-				p(t) = a \cdot t + b
-			\end{equation}
-			
-			bei den Gleichgewichtsdrücken $p_\text{Gg} = \SI{0.1}{\milli \bar}$, $p_\text{Gg} = \SI{0.4}{\milli \bar}$, $p_\text{Gg} = \SI{0.6}{\milli \bar}$ und $p_\text{Gg} = \SI{1}{\milli \bar}$ (jeweils mit einer relativen Messungenauigkeit von 10\%) ergibt über den Zusammenhang für die Leckraten
-			
-			
-			\begin{align}
-				Q &= V_\text{Dreh} \cdot a\\
-				\Delta Q &= \sqrt{\left(a \Delta V_\text{Dreh} \right)^2 + \left(V_\text{Dreh} \Delta a\right)^2}
-			\end{align}
-			
-			die Sauggeschwindigkeiten
-			
-			\begin{align}
-				S &= \frac{Q}{p_\text{Gg}}\\
-				\Delta S &= \sqrt{\left(\frac{\Delta Q}{p_\text{Gg}}\right)^2 + \left(\frac{Q \Delta p_\text{Gg}}{p_\text{Gg}^2}\right)^2},
-			\end{align}
-			
-			welche in Tabelle xyz aufgelistet sind. In Abbildung xyz sind die verwendeten Ausgleichsgeraden zu finden; in Abbildung xyz sind die ermittelten Sauggeschwindigkeiten in Abhängigkeit vom jeweils verwendeten Gleichgewichtsdruck dargestellt. 
-			
-			\include{tab/tab4}
-			\include{tab/tab5}
+Es wird angenommen, dass alle verwendeten Komponenten zylindrisch sind. Das Volumen eines Zylinders berechnet sich durch
 
-			\begin{figure}
-			\centering
-			\includegraphics[width=\linewidth]{img/drehLeck}
-			\caption{Regressionsgeraden für den Druck innerhalb der Apparatur während der Leckratenmessung mithilfe der Drehschieberpumpe.}
-			\label{fig:drehLeck}
-			\end{figure}
-			PLOT
+\begin{equation}
+V_\text{zyl} = \frac{\pi d^2 z}{4},
+\end{equation}
 
-			
-	\subsection{Messung der Sauggeschwindigkeit der Turbomolekularpumpe}
-	
-		\subsubsection{Aufnahme der Evakuierungskurve der Turbomolekularpumpe}
-			
-			Analog zur Berechnung der Sauggeschwindigkeiten der Drehschieberpumpe folgen für Turbomolekularpumpe die in Tabelle xyz aufgelisteten Sauggeschwindigkeiten. Zur Berechnung wurden die in Tabelle xyz aufgelisteten Messwerte sowie $p_0 = \SI{5 +- 1}{\micro \bar}$ und $p_\text{E} = \SI{0.015 +- 0.005}{\micro \bar}$ verwendet. Es werden die beiden in Abbildung xyz dargestellten linearen Abschnitte unterschieden. 
-			
-			TABELLE
-			TABELLE
-			PLOT
-			
-		\subsubsection{Leckratenmessung der Turbomolekularpumpe}
-			
-			In Tabelle xyz finden sich die aufgenommenen Messdaten für diesen Versuchsabschnitt. Analog zur Leckratenmessung bei der Drehschieberpumpe ergeben sich für die eingestellten Gleichgewichtsdrücke $p_\text{Gg} = \SI{0.05}{\micro \bar}$, $p_\text{Gg} = \SI{0.1}{\micro \bar}$, $p_\text{Gg} = \SI{0.15}{\micro \bar}$ und $p_\text{Gg} = \SI{0.2}{\micro \bar}$ (auch jeweils mit 10 \% Messunsicherheit) die in Tabelle aufgelisteten Leckraten und Sauggeschwindigkeiten. Die verwendeten Regressionsgeraden sind der Abbildung xyz zu entnehmen; in Abbildung xyz befindet sich eine Übersicht über die gemessenen Sauggeschwindigkeiten in Abhängigkeit vom eingestellten Gleichgewichtsdruck.
-			
-			TABELLE
-			TABELLE
-			PLOT
-			PLOT  
+wobei $d$ den Durchmesser des Zylinders und $z$ dessen Höhe bezeichnet. Mit der Fehlerfortpflanzung \eqref{fehler} folgt:
+
+\begin{equation}
+\Delta V_\text{zyl} = \frac{\pi}{4} \sqrt{(2 d z \Delta d)^2 + (d^2 \Delta z)^2}.
+\end{equation}
+
+Die gemessenen Durchmesser $d$ und Höhen $z$ sowie die abgeschätzten, zugehörigen Unsicherheiten $\Delta d$ und $\Delta z$ der verwendeten Komponenten lassen sich der Tabelle \ref{tab1} (im Anhang) entnehmen. Die Angabe über das Volumen des Tanks wurden der Versuchsanleitung \cite{V70} entnommen; die Maße der Turbomolekularpumpe fanden sich in dem beim Versuch ausliegenden Bauplänen des Pumpen-Herstellers. In der letzten Spalte wird angegeben, ob und wie oft das beschriebene Bauteil bei der Vermessung der Drehschieberpumpe (\enquote{D}) bzw. der Turbomolekularpumpe (\enquote{T}) verwendet wurde. Die Gesamtvolumina für beide Versuchsteile ergeben sich durch Addition der Teilvolumina, wobei die Ungenauigkeit einer Summe von fehlerbehafteten Volumina $V_1$ und $V_2$ gegeben ist durch $\Delta (V_1 + V_2) = \sqrt{\left(\Delta V_1^2 + \Delta V_2^2\right)}$:
+
+\begin{align}
+	V_\text{Dreh} &= \SI{11.2+-0.8}{\litre}\\
+	V_\text{Turbo} &= \SI{11.0+-0.8}{\litre}
+\end{align}
+
+
+\subsection{Messung der Sauggeschwindigkeit der Drehschieberpumpe}
+
+\subsubsection{Aufnahme der Evakuierungskurve der Drehschieberpumpe}
+
+Die Messwerte des Drucks $p(t)$ in Abhängigkeit von der Zeit sind in Tabelle \ref{tab:tab2} (im Anhang) aufgelistet. Als Messungenauigkeit des Drucks wird ein relativer Fehler von 10\% angesetzt. Der Umgebungsdruck wird nach dem Wetterbericht des Tages der Versuchsdurchführung \cite{wetter} auf $p_0 = \SI{1017 +-3}{\milli \bar}$ abgeschätzt. Als minimaler, mit der Pumpe erreichbarer Druck wurde $p_\text{E} = \SI{0.05+-0.005}{\milli \bar}$ gemessen. Es wird ein exponentieller Abfall des Drucks erwartet. Eine Ausgleichsrechnung für die logarithmierten Messwerte
+
+\begin{align}
+	f &= a \cdot t + b \quad \text{mit} \quad f = \ln \left(\frac{p(t) -p_\text{E}}{p_0 - p_\text{E}}\right)\\
+	\Delta f &= \sqrt{\left(\frac{\Delta p(t)}{p-p_\text{E}}\right)^2 + \left(\frac{\Delta p_0}{p_0 - p_\text{E}}\right)^2 + \left(\frac{p- p_0}{(p(t) - p_\text{E}) (p_0 - p_\text{E})} \Delta p_\text{E}\right)^2}
+\end{align}
+
+ergibt die Sauggeschwindigkeit
+
+\begin{align}
+	S &= - a \cdot V_\text{Dreh}\\
+	\Delta S &= \sqrt{\left(a \Delta V_\text{Dreh}\right)^2 + \left(V_\text{Dreh} \Delta a\right)^2}.
+\end{align}
+
+Es stellt sich heraus, dass drei in guter Näherung lineare Abschnitte der logarithmierten Evakuierungskurve gefunden werden können (s. Abbildung \ref{fig:drehschieber}). Die für diese Bereiche berechneten Sauggeschwindigkeiten lassen sich der Tabelle \ref{tab3} entnehmen.
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{cccccc}
+			\toprule
+			Bereich & $p \, / \, \text{mbar}$ & $a \, / \, \text{s}^{-1}$ &        $b$        & $S \, / \, (\text{l}/\text{s})$ &  \\ \midrule
+			 Blau   &       1000 ... 20       &    $-0,069 \pm 0,007 $    & $ -1,04 \pm 0,2 $ &      $ 0,78 \pm 0,09     $      &  \\
+			Orange  &       10 ... 0,6        &    $-0,096 \pm 0,002$     &  $0,01 \pm 0,1 $  &      $  1,08 \pm 0,08   $       &  \\
+			 Grün   &      0,4 ... 0,06       &    $-0,057 \pm 0,003$     & $ -3,07 \pm 0,3 $ &      $  0,64 \pm 0,05   $       &  \\ \bottomrule
+		\end{tabular}
+		\caption{Die Parameter der Regressionsgeraden in Abbildung \ref{fig:drehschieber} für die Sauggeschwindigkeit der Drehschieberpumpe.}
+		\label{tab3}
+	\end{center}
+\end{table}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{img/drehschieber}
+	\caption{Evakuierungskurve der Drehschieberpumpe.}
+	\label{fig:drehschieber}
+\end{figure}
+
+
+\subsubsection{Leckratenmessung der Drehschieberpumpe}
+
+Die aufgenommenen Daten der Leckratenmessung lassen sich der Tabelle \ref{tab5} (im Anhang) entnehmen. Eine lineare Regression mit
+
+\begin{equation}
+p(t) = a \cdot t + b
+\end{equation}
+
+bei den Gleichgewichtsdrücken $p_\text{Gg} = \SI{0.1}{\milli \bar}$, $p_\text{Gg} = \SI{0.4}{\milli \bar}$, $p_\text{Gg} = \SI{0.6}{\milli \bar}$ und $p_\text{Gg} = \SI{1}{\milli \bar}$ (jeweils mit einer abgeschätzten, relativen Messungenauigkeit von 10\%) ergibt über den Zusammenhang für die Leckraten
+
+
+\begin{align}
+	Q &= V_\text{Dreh} \cdot a\\
+	\Delta Q &= \sqrt{\left(a \Delta V_\text{Dreh} \right)^2 + \left(V_\text{Dreh} \Delta a\right)^2}
+\end{align}
+
+die Sauggeschwindigkeiten
+
+\begin{align}
+	S &= \frac{Q}{p_\text{Gg}}\\
+	\Delta S &= \sqrt{\left(\frac{\Delta Q}{p_\text{Gg}}\right)^2 + \left(\frac{Q \Delta p_\text{Gg}}{p_\text{Gg}^2}\right)^2},
+\end{align}
+
+welche in Tabelle \ref{tab4} aufgelistet sind. In Abbildung \ref{fig:drehLeck} sind die verwendeten Ausgleichsgeraden zu finden; in Abbildung \ref{fig:drehSaug} sind zusammenfassend für die Drehschieberpumpe alle ermittelten Sauggeschwindigkeiten in Abhängigkeit vom jeweils verwendeten Gleichgewichtsdruck dargestellt. 
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{cccccccc}
+			\toprule
+			$p_\text{Gg} \, / \, \text{mbar}$ & $a \, / \, \text{s}^{-1}$ &       $b$        & $Q \, / \, (\text{mbar \cdot l}/\text{s})$ & $S \, / \, (\text{l}/\text{s})$ &  \\ \midrule
+			0,1                &    $0,0050 \pm 0,0002$    & $0,15 \pm 0,02$  &          $ 0,056 \pm 0,005  $           &       $ 0,56 \pm 0,07  $        &  \\
+			0,4                &     $0,035 \pm 0,001$     & $0,33 \pm 0,05$  &          $  0,39 \pm 0,03   $           &       $  1,0 \pm 0,1   $        &  \\
+			0,6                &     $0,067 \pm 0,002$     & $0,55 \pm 0,07 $ &           $ 0,74 \pm 0,07   $           &        $1,2 \pm 0,2   $         &  \\
+			1,0                &    $0,1187 \pm 0,0007$    & $0,96 \pm 0,03 $ &           $  1,3 \pm 0,1   $            &       $  1,3 \pm 0,2   $        &  \\ \bottomrule
+			&                           &
+		\end{tabular}
+		\caption{Die Parameter der Regressionsgeraden in Abbildung \ref{fig:drehLeck} für die Leckratenmessung der Drehschieberpumpe.}
+		\label{tab4}
+	\end{center}
+\end{table}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{img/drehLeck}
+	\caption{Regressionsgeraden für den Druck innerhalb der Apparatur während der Leckratenmessung mithilfe der Drehschieberpumpe.}
+	\label{fig:drehLeck}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{img/DrehSaug}
+	\caption{Zusammenfassender Plot für die Messwerte der Sauggeschwindigkeit der Drehschieberpumpe in Abhängigkeit vom Druck.}
+	\label{fig:drehSaug}
+\end{figure}
+
+
+\subsection{Messung der Sauggeschwindigkeit der Turbomolekularpumpe}
+
+\subsubsection{Aufnahme der Evakuierungskurve der Turbomolekularpumpe}
+
+Analog zur Berechnung der Sauggeschwindigkeiten der Drehschieberpumpe folgen für Turbomolekularpumpe die in Tabelle \ref{tab8} aufgelisteten Sauggeschwindigkeiten. Zur Berechnung wurden die in Tabelle \ref{tab7} (im Anhang) aufgelisteten Messwerte sowie $p_0 = \SI{5 +- 1}{\micro \bar}$ und $p_\text{E} = \SI{0.015 +- 0.005}{\micro \bar}$ verwendet. Es werden die beiden in Abbildung \ref{fig:turbo} dargestellten linearen Abschnitte unterschieden. 
+
+\subsubsection{Leckratenmessung der Turbomolekularpumpe}
+
+In Tabelle \ref{tab9} (im Anhang) finden sich die aufgenommenen Messdaten für diesen Versuchsabschnitt. Analog zur Leckratenmessung bei der Drehschieberpumpe ergeben sich für die eingestellten Gleichgewichtsdrücke $p_\text{Gg} = \SI{0.05}{\micro \bar}$, $p_\text{Gg} = \SI{0.1}{\micro \bar}$, $p_\text{Gg} = \SI{0.15}{\micro \bar}$ und $p_\text{Gg} = \SI{0.2}{\micro \bar}$ (auch jeweils mit 10 \% Messunsicherheit) die in Tabelle \ref{tab4} aufgelisteten Leckraten und Sauggeschwindigkeiten. Die verwendeten Regressionsgeraden sind der Abbildung \ref{fig:turboLeck} zu entnehmen; in Abbildung \ref{fig:turboSaug} befindet sich eine Übersicht über die gemessenen Sauggeschwindigkeiten in Abhängigkeit vom eingestellten Gleichgewichtsdruck.
+
+
+
+
+	 
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{img/turbo}
+	\caption{Evakuierungskurve der Turbomolekularpumpe.}
+	\label{fig:turbo}
+\end{figure}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{cccccc}
+			\toprule
+			Bereich & $p \, / \, \text{µbar}$ & $a \, / \, \text{s}^{-1}$ &       $b$        & $S \, / \, (\text{l}/\text{s})$ &  \\ \midrule
+			 Blau   &       5 ... 0,06        &     $-0,79 \pm 0,05 $     & $ -0,3 \pm 0,1 $ &       $ 8,7 \pm 0,8     $       &  \\
+			Orange  &      0,04 ... 0,02      &     $-0,09 \pm 0,02$      & $-4.8 \pm 0,3 $  &       $  1,0 \pm 0,2   $        &  \\ \bottomrule
+		\end{tabular}
+		\caption{Die Parameter der Regressionsgeraden in Abbildung \ref{fig:turbo} für die Sauggeschwindigkeit der Turbomolekularpumpe.}
+		\label{tab8}
+	\end{center}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{ccccc}
+			\toprule
+			$p_\text{Gg} \, / \, \text{µbar}$ & $a \, / \, \text{s}^{-1}$ &       $b$       & $Q \, / \, (\text{µbar \cdot l}/\text{s})$ & $S \, / \, (\text{l}/\text{s})$ \\ \midrule
+			              0,05                &     $0,066 \pm 0,001$     & $0,00 \pm 0,03$ &             $ 0,73 \pm 0,05  $             &           $15 \pm 2 $           \\
+			               0,1                &     $0,237 \pm 0,006$     & $-0,3 \pm 0,2$  &             $  2,6 \pm 0,2   $             &         $  26 \pm 3   $         \\
+			              0,15                &     $0,356 \pm 0,009$     & $-0,2 \pm 0,2 $ &              $ 3,9 \pm 0,3 $               &          $26 \pm 3   $          \\
+			               0,2                &      $0,48 \pm 0,01$      & $-0,1 \pm 0,1 $ &             $  5,3 \pm 0,4  $              &         $  27 \pm 3   $         \\ \bottomrule
+		\end{tabular}
+		\caption{Die Parameter der Regressionsgeraden in Abbildung \ref{fig:turboLeck} für die Leckratenmessung der Turbomolekularpumpe.}
+		\label{tab4}
+	\end{center}
+\end{table}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{img/turboLeck}
+	\caption{Regressionsgeraden für den Druck innerhalb der Apparatur während der Leckratenmessung mithilfe der Turbomolekularpumpe.}
+	\label{fig:turboLeck}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{img/TurboSaug}
+	\caption{Zusammenfassender Plot für die Messwerte der Sauggeschwindigkeit der Turbomolekularpumpe in Abhängigkeit vom Druck.}
+	\label{fig:turboSaug}
+\end{figure}
