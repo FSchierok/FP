@@ -1,91 +1,44 @@
-# Tabellenprogramm https://github.com/TheChymera/matrix2latex
-import os
-import sys
-sys.path.insert(0, '../global/matrix2latex-master/')
-from matrix2latex import matrix2latex
-
-import matplotlib as mpl
-mpl.use('pgf')
-mpl.rcParams.update({
-    'font.family': 'serif',
-    'text.usetex': True,
-    'pgf.rcfonts': False,
-    'pgf.texsystem': 'lualatex',
-    'pgf.preamble': r'\usepackage{unicode-math}\usepackage{siunitx}',
-    'errorbar.capsize': 3
-})
+from sklearn.neighbors import NearestNeighbors
 import numpy as np
-import uncertainties.unumpy as unp
-from uncertainties import ufloat
-from uncertainties.unumpy import (nominal_values as noms, std_devs as stds)
-from scipy.optimize import curve_fit
-import scipy.constants as const
-import matplotlib.pyplot as plt
-import math as m
-from sklearn import datasets
+import pandas as pd
+np.random.seed(0)
 
-def fehler(x):
-    return np.std(x, ddof=1) / len(x)
+# Daten einlesen mit pandas. Konvertierung in numpy array
+signal_pandas = pd.read_csv('data/signal.csv', sep=';')
+signal = signal_pandas.values
+background_pandas = pd.read_csv('data/signal.csv', sep=';')
+background = background_pandas.values
 
-from sklearn import svm
-from sklearn import datasets
-clf = svm.SVC()
-iris = datasets.load_iris()
-X, y = iris.data, iris.target
-clf.fit(X, y)
+# Klassifikation in erste Spalte (für Signal "1", für Background "0")
+signal = np.column_stack((np.ones(len(signal)), signal))
+background = np.column_stack((np.zeros(len(background)), background))
+
+# Fasse signal und backgound als data zusammen und permutiere dann die Indizes
+# von data zufällig beim Aufteilen in Trainings- und Testdaten (90% und 10% von
+# Gesamtdaten). Dabei sind X die Beispiele und y ihre Klassifikation
+data = np.concatenate((signal, background), axis = 0)
+perm = np.random.permutation(len(data))
+data_train = data[perm[:-len(data) // 10]]
+data_test  = data[perm[-len(data) // 10:]]
+data_train_X = data_train[:,1:]
+data_train_y = data_train[:,0]
+data_test_X = data_test[:,1:]
+data_test_y = data_test[:,0]
+
+# TODO: NaNs und Infs entfernen; Attribute entfernen, die nur in einem der bei-
+# den Datensätze vorkommen; keine Monte-Carlo-Wahrheiten; keine Eventidenti-
+# fikationsnummern; keine Gewichte --> in calc entsprechende Spalten finden und
+# per Hand rausnehmen... dauert lange bei 280 Spalten. Schnellere Möglichkeit?
 
 
-import pickle
-s = pickle.dumps(clf)
-clf2 = pickle.loads(s)
-clf2.predict(X[0:1])
-
-y[0]
-
-
-
-# Daten einlesen und ausgeben:
-# x = np.genfromtxt("data/x.txt", unpack=True) [Skalar oder Vektor]
-# y = ufloat(y-Nominalwert, y-Fehler) [Skalar mit Fehler]
-# z = unp.uarray(vec1, vec2) [Vektor mit Fehler]
-# print(x)
-
-# Fehler:
-# noms(x) [Nominalwert]
-# stds(x) [Fehlerwert]
-
-# linfit:
-# def f1(x, a, b):
-#    return a*x + b
-#
-# params, cov = curve_fit(f2, x, y) [x und y = f(x) sind Eingabe]
-# error = np.sqrt(np.diag(cov))
-
-# plot:
-# SHOW  = False
-#
-# x = np.linspace(0, 1, 1000)
-# plt.figure(1)
-# plt.subplot(2, 1, 1)
-# plt.plot(x1, y1, "-r", label=r"$f(x)$")
-# plt.plot(x1, f1(x1, *params), "-g", label="Fit")
-# plt.yticks([0, 10, 20, 30, 40, 50])
-# plt.ylim(0, 60)
-# plt.xticks([0, 2 * 10**-9], ["0", "2"])  [für z.b. nano-Einteilung]
-# plt.legend(loc="best")
-# plt.grid()
-# plt.xlabel(r"$C_\mathrm{K} / \mathrm{nF}$")
-# plt.ylabel(r"$f / \mathrm{kHz}$")
-# plt.tight_layout()
-# plt.show() if SHOW else plt.savefig("img/xyz.pdf")
-
-# LaTex-Tabellen
-# output = open("tab/ausgabe.tex","w")
-# R = 50
-# V = np.array([1, 20, 100])
-# I = V/R
-# cap = r"""Berechnete Ströme durch einen $\SI{%g}{\ohm}$-Widerstand.""" % R
-# hr = [[r"$U$", r"$I$"], [r"\si{V}", r"\si{A}"]]
-# t = matrix2latex([V, I], caption = cap, transpose = False, alignment = "S", format = "%.2f", headerRow = hr, label = "Labeltext")
-# output.write(t)
-# print(t)
+# Lernen und überprüfen
+# nn = NearestNeighbors(1).fit(data_train_X)
+# distances, indices = nn.kneighbors(XTest)
+# print(indices.shape)
+# total = 0
+# match = 0
+# for i in range(len(data_test_y)):
+#     total += 1
+#     if data_test_y[i] == data_train_y[indices[i]]:
+#             match += 1;
+# print(total, match)
