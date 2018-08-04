@@ -32,8 +32,15 @@ for i in range(len_data):
 data_X = data[:,1:]
 data_y = data[:,0]
 
-# TODO: Feature Selection
-data_X_selected = data_X[:,:15]
+# Feature Selection
+# http://scikit-learn.org/stable/modules/feature_selection.html#univariate-feature-selection
+# https://stackoverflow.com/questions/15484011/scikit-learn-feature-selection-for-regression-data#
+from sklearn.feature_selection import SelectKBest
+def f_regression(X,Y):
+   import sklearn
+   return sklearn.feature_selection.f_regression(X,Y,center=False) #center=True (the default) would not work ("ValueError: center=True only allowed for dense data") but should presumably work in general
+data_X_selected = SelectKBest(score_func=f_regression, k=20).fit_transform(data_X, data_y) # k = 20 da dadurch höchstmöglicher Jaccard-Index von J = 0.98325
+
 
 # Permutiere die Indizes von data zufällig beim Aufteilen in Trainings- und
 # Testdaten (90% und 10% von Gesamtdaten).
@@ -46,9 +53,11 @@ data_test_X  = data_X_selected[perm[-len(data_X_selected) // 10:]]
 
 # Lernen und überprüfen
 from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import jaccard_similarity_score
 model = GaussianNB()
 model.fit(data_train_X, data_train_y)
 expected = data_test_y
 predicted = model.predict(data_test_X)
 print(metrics.classification_report(expected, predicted))
 print(metrics.confusion_matrix(expected, predicted))
+print(jaccard_similarity_score(expected,predicted))
