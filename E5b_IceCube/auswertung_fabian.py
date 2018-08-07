@@ -23,3 +23,5 @@ for category in bg:
         del bg[category]
 signal.to_csv("data/signal_fabian.csv", sep=";")
 bg.to_csv("data/bg_fabian.csv", sep=";")
+
+data = pd.concat([signal, bg])
