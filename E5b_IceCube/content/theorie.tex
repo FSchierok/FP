@@ -23,7 +23,7 @@ Die Featureauswahl wird $l$-mal auf $l$ Teilmengen ausgeführt nach Formel \eqre
 	\label{eqn:jaccard_tilde}
 \end{equation}
 
-Es werden drei verschiedene Lerner verwendet, ein Naive-Bayes, ein  k-Nächste-Nachbarn und ein Random-Forest Diese werden in Folgenden genauer erklärt.
+Es werden drei verschiedene Lerner verwendet, ein Naive-Bayes, ein  k-Nächste-Nachbarn und ein Random-Forest. Diese werden in Folgenden genauer erklärt.
 \subsection{Naive Bayes}
 Das Bayes'sche Theorem besagt
 \begin{equation}
@@ -38,7 +38,7 @@ eins an, wenn ein Ereignis wahrscheinlicher Signal als Untergrund ist.
 Für mehrere Features wird das Produkt der Einzelquotienten genommen.
 \subsection{k Nächste Nachbarn}
 Bei dem k Nächste Nachbarn werden die Features als Dimensionen interpretiert. Die einzelen Daten entsprechen dann Punkten in diesem Raum. Bei dem zu
-Klassifizierenden Punkt werden dann die k nächsten Nachbarn gemittelt. Dafür kann jede Abstandsdefinition genutzt werden, in der Regel ist es aber der
+klassifizierenden Punkt wird dann über die k nächsten Nachbarn gemittelt. Dafür kann jede Abstandsdefinition genutzt werden, in der Regel ist es aber der
 Euklidische Abstand.
 \subsection{Random Forest}
 Der Random Forest ist ein Binärer Baum, bei dem an jedem Knoten eine Zufällige Entscheidung getroffen wird. Jedem Blatt ist eine Klassifizierung zugeordnet.
