@@ -68,7 +68,7 @@ drehschieber_pende = 0.05 #mbar
 drehschieber_pendeerr = 0.005 #mbar
 drehschieber_pstart = 1017 #mbar
 drehschieber_pstarterr = 3 #mbar
-drehschieber_errpmess = 0.10 * drehschieber_pmess
+drehschieber_errpmess = 0.20 * drehschieber_pmess
 drehschieber_p = unp.uarray(drehschieber_pmess, np.sqrt(
 (drehschieber_errpmess/(drehschieber_pmess - drehschieber_pende))**2
 + (drehschieber_pstarterr/(drehschieber_pstart - drehschieber_pende))**2
