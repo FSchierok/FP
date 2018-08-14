@@ -5,7 +5,7 @@ TeXOptions = -lualatex \
 			 -halt-on-error \
 			 -output-directory=build
 
-document: main.tex auswertung.py
+document: main.tex
 	latexmk $(TeXOptions) main.tex
 	mv build/main.pdf build/main.pdf
 

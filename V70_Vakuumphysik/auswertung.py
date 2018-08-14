@@ -483,14 +483,47 @@ S_turboLeck02 = Q_turboLeck02 / p0_turbo02
 S_turboLeck005 = Q_turboLeck005 / p0_turbo005
 S_turboLeck015 = Q_turboLeck015 / p0_turbo015
 
-print(Q_turboLeck005)
-print(Q_turboLeck01)
-print(Q_turboLeck015)
-print(Q_turboLeck02)
-print(S_turboLeck005)
-print(S_turboLeck01)
-print(S_turboLeck015)
-print(S_turboLeck02)
+
+# print(a_drehLeck01)
+# print(a_drehLeck04)
+# print(a_drehLeck06)
+# print(a_drehLeck1 )
+# print(b_drehLeck01)
+# print(b_drehLeck04)
+# print(b_drehLeck06)
+# print(b_drehLeck1)
+# print(Q_drehLeck01)
+# print(Q_drehLeck04)
+# print(Q_drehLeck06)
+# print(Q_drehLeck1 )
+# print(S_drehLeck01)
+# print(S_drehLeck04)
+# print(S_drehLeck06)
+# print(S_drehLeck1 )
+#
+# print(a_turboLeck01)
+# print(a_turboLeck02 )
+# print(a_turboLeck005)
+# print(a_turboLeck015)
+# print(b_turboLeck01 )
+# print(b_turboLeck02 )
+# print(b_turboLeck005)
+# print(b_turboLeck015)
+
+# print(Q_turboLeck005)
+# print(Q_turboLeck01)
+# print(Q_turboLeck015)
+# print(Q_turboLeck02)
+# print(S_turboLeck005)
+# print(S_turboLeck01)
+# print(S_turboLeck015)
+# print(S_turboLeck02)
+
+print(np.log((noms(drehschieber_p)-drehschieber_pende)/(drehschieber_pstart-drehschieber_pende)))
+print(stds(drehschieber_p))
+
+print(np.log((noms(turbo_p)-turbo_pende)/(turbo_pstart-turbo_pende)))
+print(stds(turbo_p))
 #------------------------------------------------------------------------------
 
 # Tabellen

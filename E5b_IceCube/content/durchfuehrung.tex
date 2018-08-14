@@ -1,2 +1,4 @@
 \section{Durchführung}
 \label{sec:Durchführung}
+
+Gegeben sind zwei Datensätze für Signal und Background mit jeweils 20000 Zeilen, die jeweils einem Event entsprechen und einigen hundert Spalten, in denen Features aufgelistet sind. Zunächst werden die Daten vorverarbeitet, indem alle Spalten entfernt werden, die nur in einer der Dateien vorkommen, die leer sind oder ausschließlich Konstanten enthalten. Dann werden die Spalten entfernt, die Monte-Carlo-Wahrheiten, Gewichte und Event-Identifikationsnummern enthalten. Anschließend werden alle nicht-numerischen Werte (\texttt{Inf} und \texttt{NaN}) durch den Median der entsprechenden Datenspalte ersetzt. Anschließend werden die Labels "0" für den Background und "1" für Signale zugeordnet. Die beiden Datensätze werden zu einem Datensatz zusammengefasst, wobei die Spalten in zufälliger Weise angeordnet werden. Anschließend wird der Datensatz noch in Trainings- und Testdaten unterteilt (im Verhältnis 3:1). 

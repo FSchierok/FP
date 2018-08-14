@@ -1,4 +1,5 @@
 import matplotlib as mpl
+import time
 mpl.use('pgf')
 mpl.rcParams.update({
     'font.family': 'serif',
@@ -23,16 +24,10 @@ from sklearn import metrics
 np.random.seed(2)
 
 # Input
-# Daten einlesen mit pandas. Konvertierung in numpy array. Format:
-# (N_samples, N_features)
 signal_pandas = pd.read_csv('data/signal_auch_ohne_MC.csv', sep=',')
 signal = signal_pandas.values
 background_pandas = pd.read_csv('data/background_auch_ohne_MC.csv', sep=',')
 background = background_pandas.values
-# signal_pandas = pd.read_csv('data/signal.csv', sep=';')
-# signal = signal_pandas.values
-# background_pandas = pd.read_csv('data/signal.csv', sep=';')
-# background = background_pandas.values
 
 # Klassifikation in erste Spalte (für Signal "1", für Background "0")
 signal = np.column_stack((np.ones(len(signal)), signal))
@@ -60,7 +55,7 @@ def f_regression(X,Y):
 data_X_selected = SelectKBest(score_func=f_regression, k=26).fit_transform(data_X, data_y)
 
 
-# Teile in Test- und Trainingsdaten auf (10%, 90%). Shuffle mit seed 42
+# Teile in Test- und Trainingsdaten auf. Shuffle mit seed 42
 from sklearn.model_selection import train_test_split
 data_train_X, data_test_X, data_train_y, data_test_y  = train_test_split(data_X_selected, data_y, test_size=0.25, random_state=42)
 
@@ -88,7 +83,7 @@ ax1.plot([0, 1], ls="--")
 ax1.set_ylabel('True Positive Rate')
 ax1.set_xlabel('False Positive Rate')
 ax1.legend()
-fig1.savefig("plots/ROC.pdf")
+fig1.savefig("plots/neigh/ROC.pdf")
 
 # Plot Scoreverteilung, Ziel: https://docs.aws.amazon.com/machine-learning/latest/dg/binary-classification.html
 from sklearn.metrics import confusion_matrix
@@ -113,35 +108,22 @@ ax3.set_title('Scoreverteilung')
 score = np.linspace(0, 1, 1000)
 ax3.plot(score, num_tp1, "-", label = "\# of true positives")
 ax3.plot(score, num_tn1, "-", label = "\# of true negatives")
-#ax3.set_xlim([0, 1])
+ax3.set_ylabel("Anzahl")
 ax3.set_xlabel("Score")
 ax3.legend()
-fig3.savefig("plots/Scoredistribution.pdf")
+fig3.savefig("plots/neigh/Scoredistribution.pdf")
 
-# Precision, Recall, Threshold Kurve
+# precision recall threshold curve
 # https://www.kaggle.com/kevinarvai/fine-tuning-a-classifier-in-scikit-learn, http://www.scikit-yb.org/en/latest/api/classifier/threshold.html
-
-# precision recall threshold curve_fit
-from sklearn.metrics import precision_recall_curve
-precisions, recalls, thresholds = precision_recall_curve(expected, predicted)
-
-fig4 = plt.figure(4)
-ax4 = fig4.add_subplot(111)
-ax4.set_title("Precision and Recall Scores as a function of the decision threshold")
-ax4.plot(thresholds, precisions[:-1], label="Precision")
-ax4.plot(thresholds, recalls[:-1], label="Recall")
-ax4.set_ylabel("Score")
-ax4.set_xlabel("Decision Threshold")
-ax4.legend()
-fig4.savefig("plots/Precision_Recall_Threshold.pdf")
-
-# precision recall threshold curve_fit2
-from sklearn.linear_model import LogisticRegression
 from yellowbrick.classifier import DiscriminationThreshold
-
-# Instantiate the classification model and visualizer
 fig5 = plt.figure(5)
 ax5 = fig5.add_subplot(111)
 visualizer = DiscriminationThreshold(neigh, exclude = ("queue_rate", "fscore"), ax = ax5)
 visualizer.fit(data_train_X, data_train_y)  # Fit the training data to the visualizer
-visualizer.poof(outpath="plots/prec_reca_thresh.pdf")     # Draw/show/poof the data
+visualizer.poof(outpath="plots/neigh/prec_reca_thresh.pdf")     # Draw/show/poof the data
+
+print(time.clock())
+
+print(confusion_matrix(expected, (predicted_probs[:,1] > 0.7).astype(bool)))
+from sklearn.metrics import classification_report
+print(classification_report(expected, (predicted_probs[:,1] > 0.7).astype(bool)))
