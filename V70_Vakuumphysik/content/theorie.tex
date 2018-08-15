@@ -15,14 +15,15 @@ unterscheiden sich in ihrem Unterdruck, also dem Druckunterschied zum Normaldruc
 	\item[ideales Vakuum (IV)] $\SI{0}{\milli \bar}$
 \end{description}
 \subsection{Gasphysik}
-Die einfachste Besceschreibung für Gase ist die ideale Gasgleichung:
+Die einfachste Beschreibung für Gase ist die ideale Gasgleichung:
 \begin{equation}
 	pV=Nk_\text{B}T
 \end{equation}
+Dabei ist $p$ der Druck, $V$ das Volumen, $N$ die Teilchenanzahl, $k_\text{B}$ die Boltzmannkonstante und $T$ die Temperatur.
 Diese gilt, wenn das Gas aus identischen Teilchen ohne Ausdehnung besteht, diese nur über elastische Stöße wechselwirken und das Gas in einem Volumen $V$ eingeschlossen
 ist, mit dessen Begrenzung auch nur elastisch gestoßen wird. Aus dieser Formel ist auch ersichtlich, dass $p=0$ nicht möglich ist, da dann $T=0$ gelten
 müsste, was nach dem 3. Hauptsatz der Thermodynamik unerreichbar ist. Es lässt sich auch das Gesetz von Boyle-Mariotte herleiten, das besagt, dass bei
- konstanter Temperatur der Druck $p$ antiproportional zu $V$ ist. Zudem kann zu der Teilchendichte umgestellt werden.\cite{TuSKierfeld}
+ konstanter Temperatur der Druck $p$ antiproportional zu $V$ ist. Zudem kann zu der Teilchendichte umgestellt werden\cite{TuSKierfeld}.
  \begin{equation}
  	\frac{N}{V}=\frac{k_\text{B}T}{p}
  \end{equation}
@@ -46,19 +47,19 @@ durch die Drehung immer weiter komprimiert, bis der Überdruck ausreicht um das 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/drehpump.jpg}
-	\caption{Schematischer Aufbau einer Drehschieberpumpe.\cite{hoechs}}
+	\caption{Schematischer Aufbau einer Drehschieberpumpe\cite{hoechs}.}
 	\label{img:drehpump}
 \end{figure}
 \subsection{Turbomolekularpumpe}
 Eine Turbomolekularpumpe besteht aus einem Hohlzylinder, in dem abwechselnd Rotoren und Statoren sind. Dabei sind die Rotorblätter in Drehrichtung und die
-Statorblätter in die entgegengesetzte Richtung gekippt. Wenn nun ein Molekül einen Rotor trifft, wird es in Drehrichtung beschleunigt. Das darauf folgende Stratorblatt lenkt das Molekül dann
+Statorblätter in die entgegengesetzte Richtung gekippt. Wenn nun ein Molekül einen Rotor trifft, wird es in Drehrichtung beschleunigt. Das darauf folgende Statorblatt lenkt das Molekül dann
 in den nächsten Rotor. Es ist für die Funktionsweise wichtig, dass Geschwindigkeit der Rotorblätter größer ist als die mittlere Molekülgeschwindigkeit des
-Gases. Zudem müssen die Abstände der Rotoren in der Größenordnung der mittleren freien Weglänge der Gasmoleküle liegen, da die Bewegung sonst zum Erliegen
-kommt. Der Aufbau ist in Abbildung \ref{img:turbopump} zu sehen.
+Gases. Zudem müssen die Abstände der Rotoren in der Größenordnung der mittleren freien Weglänge der Gasmoleküle liegen, da die Teilchen nur mit der Pumpe und
+nicht untereinander Stoßen sollen. Der Aufbau ist in Abbildung \ref{img:turbopump} zu sehen.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/turbopump.jpg}
-	\caption{Schematischer Aufbau einer Turbomolekularpumpe.\cite{wiki}}
+	\caption{Schematischer Aufbau einer Turbomolekularpumpe\cite{wiki}.}
 	\label{img:turbopump}
 \end{figure}
 \subsection{Vakuummeter}
@@ -88,8 +89,9 @@ Im Folgenden werden einige Fachbegriffe aus der Vakuumtechnik erläutert.
 \end{description}
 \subsection{Leitwert}
 Nur sehr selten wird eine Pumpe direkt an einen Versuchaufbau angeschlossen. In der Regel wird ein Schlauchsystem eingesetzt. Dieses hat neben der Volumensvergrößerung
-noch mehr negative Auswirkungen auf das reale Saugvermögen der Pumpe. Es entsteht ein Druckgefälle zur Pumpe hin, bedingt durch den Strömungswiderstand des Schlauchsystems. In der Regel wird der Kehrwert dieses Widerstands benutzt: der Leitwert. Der Leitwert verhält sich analog zu $\sfrac{1}{R}$ in elektrischen
-Systemen:
+noch mehr negative Auswirkungen auf das reale Saugvermögen der Pumpe. Es entsteht ein Druckgefälle zur Pumpe hin, bedingt durch den Strömungswiderstand des
+Schlauchsystems. In der Regel wird der Kehrwert dieses Widerstands benutzt: der Leitwert. Der Leitwert verhält sich analog zu Kehrwert des elektrischen
+Widerstandes $\sfrac{1}{R}$ in elektrischen Systemen:
 \begin{align}
 	L_\text{ges, parallel}=&\sum_i L_i \\
 	L_\text{ges, reihe}=&\sum_i \frac{1}{L_i}.
