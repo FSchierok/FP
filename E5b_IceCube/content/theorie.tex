@@ -1,65 +1,69 @@
 \section{Theorie}
 \label{sec:Theorie}
-Das IceCube Experiment ist ein Array aus Photodedektoren, die am geografischen Südpol im Eis eingefroren sind. Dabei befinden sich 5160 Photodedektoren
-in einer Tiefe zwischen $\SI{1450}{\meter}$ und $\SI{2450}{\meter}$. Das Ziel ist kosmische Neutrinos zu detekieren, dazu wird das Cerenkovlicht der sekundär
-Teilchen aus Neutrinowechselwirkungen gesucht. Da aber noch viele andere Teilchen IceCube durchqueren, müssen die Daten gefiltert werden. Ein erster Filter ist die
-Richtung, aus der das Teilchen kam. Die gesuchten Neutrinos kommen aus dem Boden, so das die Erde als Abschirmung gegen die restliche Kosmische Strahlung
-wirkt. Da die Richtungsauflösung aber nicht so genau ist, müssen weitere Filter angewand werden, um ein signifikantes Signal zu erhalten. Dazu werden mit Hilfe
-von machine learning Algorithmen trainiert, die die weitere Auswertung durchführen.
-\subsection{machine learning}
-Machine learning wird oft zur Klassifizierung von Daten eingesetzt. Ein Algorithmus muss dazu mit bereits klassifizierten Daten trainiert werden. Häufig hat ein
-Datensatz eine vielzahl an Attributen oder Features. Es können alle Features an der Lerner übergeben werden, dies erhöht aber die Rechenzeit. Effizienter ist
-es, die Features voher auszuwählen, die übergeben werden.
-%Hier feature_selection einfügen
-\subsection{Jaccard-Index}
-Der Jaccard-Index $J$ beschreibt die Ähnlichkeit zweier Mengen. Er wird nach Formel \eqref{eqn:jaccard} bestimmt.
-\begin{equation}
-	J=\frac{|F_a \cup F_b|}{|F_a \cap F_b|}
-	\label{eqn:jaccard}
-\end{equation}
-Die Featureauswahl wird $l$-mal auf $l$ Teilmengen ausgeführt nach Formel \eqref{eqn:jaccard_tilde}. Ein Wert nahe eins deutet auf eine gute Auswahl.
-\begin{equation}
-	\tilde{J} =\frac{2}{l(l-1)}\sum_{i=1}^l \sum_{j=i+1}^l J(F_i,F_j)
-	\label{eqn:jaccard_tilde}
-\end{equation}
+Das IceCube-Experiment besteht aus einem Array aus Photodedektoren, die am geografischen Südpol im Eis eingefroren sind. Dabei befinden sich 5160 Photodedektoren in einer Tiefe zwischen $\SI{1450}{\meter}$ und $\SI{2450}{\meter}$. Ziel ist es, kosmische Neutrinos zu detektieren. Dazu wird nach Cerenkovlicht von Sekundärteilchen gesucht, die in Neutrinowechselwirkungen entstehen. Da aber noch viele andere Teilchen das Array durchqueren, müssen die gemessenen Events gefiltert werden. Ein erster Filter ist die Richtung, aus der das Teilchen kam. Die gesuchten Neutrinos stammen von \enquote{unten}, sodass die Erde als Abschirmung gegen die restliche Kosmische Strahlung wirkt. Da die Richtungsauflösung aber ungenau ist, müssen weitere Filter angewandt werden, um ein Signal mit akzeptabler Messungenauigkeit zu erhalten. Diese Klassifikation wird durch machine learning ermöglicht. 
 
-Es werden drei verschiedene Lerner verwendet, ein Naive-Bayes, ein  k-Nächste-Nachbarn und ein Random-Forest. Diese werden in Folgenden genauer erklärt.
-\subsection{Naive Bayes}
+\subsection{Machine learning}
+Machine learning wird oft zur Klassifizierung von Datensätzen eingesetzt. Beim supervised learning wird dazu ein Lerner mit bereits klassifizierten Events trainiert. Die verwendeten Datensätze bestehen dabei aus Listen von Events und jeweiligen Features des Events. Diese Features haben im Allgemeinen einen unterschiedlichen Informationsgehalt -- eine Auswahl einzelner Features (\enquote{ Feature-Selection}) kann die Rechenzeit verringern und das Phänomen des \enquote{Überlernens} verhindern.
+
+\subsection{Feature-Selection}
+\label{fs}
+Im Folgenden wird die Feature-Selection \texttt{SelectKBest} aus der Software \texttt{scikit-learn} \cite{scikit} verwendet: Diese wählt mithilfe einer Funktion, die einen Score für die Klassifikation eines Datensatzes erzeugt, die $k$ am höchsten bewerteten Features aus. Als Score-Funktion wird \texttt{f\_regression} aus dem gleichen Programmpaket verwendet.
+
+%\subsection{Jaccard-Index}
+%Der Jaccard-Index $J$ beschreibt die Ähnlichkeit zweier Mengen. Er wird nach Formel \eqref{eqn:jaccard} bestimmt.
+%
+%\begin{equation}
+%	J=\frac{|F_a \cup F_b|}{|F_a \cap F_b|}
+%	\label{eqn:jaccard}
+%\end{equation}
+%
+%Die Featureauswahl wird $l$-mal auf $l$ Teilmengen ausgeführt nach Formel \eqref{eqn:jaccard_tilde}. Ein Wert nahe eins deutet auf eine gute Auswahl.
+
+%\begin{equation}
+%	\tilde{J} =\frac{2}{l(l-1)}\sum_{i=1}^l \sum_{j=i+1}^l J(F_i,F_j)
+%	\label{eqn:jaccard_tilde}
+%\end{equation}
+
+Es werden drei verschiedene Lerner verwendet: der Naive-Bayes-, der  k-Nearest-Neighbors- und der Random-Forest-Lerner. Diese werden in Folgenden genauer erklärt:
+
+\subsection{Naive-Bayes}
 Das Bayes'sche Theorem besagt
 \begin{equation}
 	p(A|B)=\frac{p(B|A)p(A)}{p(B)}.
 \end{equation}
-Mit den Klassen Signal $A$ und Untergrund $\overline{A}$ und dem Feature $B$ nimmt der Wahrscheinlichkeitsquotient $Q$ \eqref{eqn:bayes} einen Wert größer als
-eins an, wenn ein Ereignis wahrscheinlicher Signal als Untergrund ist.
+Mit den Klassen Signal $A$ und Untergrund $\overline{A}$ und dem Feature $B$ nimmt der Wahrscheinlichkeitsquotient $Q$ in Gleichung \eqref{eqn:bayes} einen Wert größer als
+eins an, wenn ein Event wahrscheinlicher Signal als Untergrund ist.
 \begin{equation}
 	Q=\frac{p(A|B)}{p(\overline{A}|B)} = \frac{p(B|A)p(A)}{p(B|\overline{A})p(\overline{A})}
 	\label{eqn:bayes}
 \end{equation}
-Für mehrere Features wird das Produkt der Einzelquotienten genommen.
-\subsection{k Nächste Nachbarn}
-Bei dem k Nächste Nachbarn werden die Features als Dimensionen interpretiert. Die einzelen Daten entsprechen dann Punkten in diesem Raum. Bei dem zu
-klassifizierenden Punkt wird dann über die k nächsten Nachbarn gemittelt. Dafür kann jede Abstandsdefinition genutzt werden, in der Regel ist es aber der
-Euklidische Abstand.
+Für Klassifikationen durch mehrere Features wird das Produkt der Einzelquotienten verwendet.
+
+\subsection{k-Nearest-Neighbors}
+Beim k-Nearest-Neighbors-Lerner  werden die Features als Dimensionen eines Vektorraums interpretiert. Die einzelnen Daten entsprechen Ortsvektoren in diesem Raum. Bei einem zu
+klassifizierenden Punkt wird dann über die $k$ nächsten Datenpunkte gemittelt. Für die Berechnung der Abstände wird ein euklidisches Abstandsmaß verwendet.
+
+
 \subsection{Random Forest}
-Der Random Forest ist ein Binärer Baum, bei dem an jedem Knoten eine Zufällige Entscheidung getroffen wird. Jedem Blatt ist eine Klassifizierung zugeordnet.
-In der Regel wird nicht nur ein Baum aufgestellt, sondern über eine Vielzahl gemittelt. Dadurch wird ein Übertrainieren, das heißt eine Spezialisierung auf die
-Trainingsdaten aber schlechte Ereignisse bei Unbekannten, verhindert.
+Der Random Forest ist eine Menge unkorrelierter Entscheidungsbäume, wobei an jedem Knoten eine zufällige Entscheidung getroffen wird. Jedem Blatt ist eine Klassifizierung zugeordnet.
+In der Regel wird nicht nur ein Baum aufgestellt, sondern über eine Vielzahl solcher gemittelt. Dadurch wird ein Übertrainieren, das heißt eine Spezialisierung auf die Trainingsdaten verhindert.
+
+
 \subsection{Bewertung}
-Eine Binäre Klassifizierung kann vier Ergebnisse haben: Signal als Signal erkannt (true-positiv: tp), Signal als Untergrund erkannt (false-negativ: fn),
-Untergrund als Signal erkannt (false-positiv: fp) und Untergrund als Untergrund erkannt (true-negativ: tn). Damit lassen sich Größen zur Bewertung eines
-Lerners definieren. Die Reinheit $p$ gibt an wie Wahrscheinlich ein als Signal Klassifiziertes Datum auch Signal ist. Sie wird berechnet nach
+Eine Binäre Klassifizierung kann vier Ergebnisse haben: Signal als Signal erkannt (true-positive: $tp$), Signal als Untergrund erkannt (false-negative: $fn$),
+Untergrund als Signal erkannt (false-positive: $f$p) und Untergrund als Untergrund erkannt (true-negative: $tn$). Damit lassen sich Größen zur Bewertung eines
+Lerners definieren. Die Präzision $p$ gibt an, wie wahrscheinlich ein als Signal klassifiziertes Event auch ein Signal ist. Sie wird berechnet nach
+
 \begin{equation}
 	p=\frac{tp}{tp+fp}.
 \end{equation}
-Das Zweite Merkmal ist die Effizenz $r$. Sie gibt an wie viel Signal verloren wurde, also als Untergrund klassifiziert wurde. Sie wird berechnet nach
+
+Das zweite Merkmal ist die Effizienz $r$. Sie gibt an, wie groß der Anteil der Signale, die fälschlicherweise als Untergrund klassifiziert wurden. Sie wird nach
+
 \begin{equation}
 	r=\frac{tp}{tp+fn}
 \end{equation}
-Um diese Merkmale zu bestimmen, muss der Lerner Daten bekommen, mit denen er nicht trainiert wurde, für die aber trotzdem die richtige Klassifizierung bekannt
-ist. Dazu teilt man die Trainingsdaten in $n$ Teile und Trainert dann mit $n-1$ Teilen. Die restlichen Daten werden dann zum Testen benutzt. Dieser Vorgang
-sollte so Wiederholt werden, dass jeder Teil einmal als Testdaten genutzt wurde. Dadurch kann ein Mittelwert und Fehler für dei Merkmale bestimmt werden.
-\subsection{Vorbereitung}
-In dieser Auswertung werden Daten aus Monte-Carlo-Simulationen verwendet. Da einige der Features aus der Simulation bei echten Daten nicht bekannt sind, müssen
-die gegeben Datensätze erst bereinigt werden. Dazu sollten alle Features, deren Label MC, Weigth oder Event beinhalten entfernt werden. Zusätzlich kann
-ungültige Einträge wie NaN (Not a Number) oder inf (Infinity) vorkommen. Es gibt verschiedene Vorgehensweisen um mit solchen Einträgen zu arbeiten, hier wurde
-der Mittelwert des Feature eingesetzt.
+
+berechnet. Um diese Kenngrößen zu bestimmen, muss der Lerner Daten bekommen, mit denen er nicht trainiert wurde, für die aber trotzdem die richtige Klassifizierung bekannt
+ist. Dazu teilt man die vorhandenen Event-Datensätze in $n$ Teile und trainiert mit $n-1$ Teilen. Der verbliebene Teil der Daten wird zum Testen verwenden. Dieser Vorgang
+sollte so wiederholt werden, dass jeder Teil einmal zum Testen des Lerners genutzt wurde. Dadurch kann ein Mittelwert und Fehler für die Merkmale bestimmt werden. Das Vorgehen nennt sich \enquote{Kreuzvalidierung}.

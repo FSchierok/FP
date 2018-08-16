@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.0.4 (TeX Live 2017)  (format=lualatex 2018.3.26)  13 AUG 2018 13:19
+This is LuaTeX, Version 1.0.4 (TeX Live 2017)  (format=lualatex 2018.3.26)  16 AUG 2018 15:52
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -33,7 +33,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.121 seconds
+luaotfload | main : initialization completed in 0.117 seconds
 Babel <3.18> and hyphenation patterns for 1 language(s) loaded.
 (./content/header.tex
 (/home/carlo/.local/texlive/2017/texmf-dist/tex/latex/koma-script/scrartcl.cls
@@ -2169,69 +2169,83 @@ atex-cache/generic/fonts/otl/lmmono12-regular.luc) [1
 
 {/home/carlo/.local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-(./content/einleitung.tex) (./content/theorie.tex) (./content/durchfuehrung.tex
+(./content/einleitung.tex) (./content/theorie.tex(load luc: /home/carlo/.local/t
+exlive/2017/texmf-var/luatex-cache/generic/fonts/otl/lmroman8-regular.luc)(load 
+luc: /home/carlo/.local/texlive/2017/texmf-var/luatex-cache/generic/fonts/otl/lm
+roman5-regular.luc) [2
+
+] [3]) (./content/durchfuehrung.tex
+
+LaTeX Warning: Citation 'scikit' on page 4 undefined on input line 6.
+
+
+LaTeX Warning: Citation 'yellowbrick' on page 4 undefined on input line 6.
+
+
+LaTeX Warning: Citation 'matplotlib' on page 4 undefined on input line 6.
+
+
+LaTeX Warning: Citation 'numpy' on page 4 undefined on input line 6.
+
 ) (./content/auswertung.tex
-<plots/bayes/ROC.pdf, id=15, 462.52798pt x 346.89601pt>
+<plots/bayes/ROC.pdf, id=39, 462.52798pt x 346.89601pt>
 File: plots/bayes/ROC.pdf Graphic file (type pdf)
 <use plots/bayes/ROC.pdf>
-Package luatex.def Info: plots/bayes/ROC.pdf  used on input line 7.
+Package luatex.def Info: plots/bayes/ROC.pdf  used on input line 10.
 (luatex.def)             Requested size: 292.7776pt x 219.59369pt.
-<plots/bayes/Scoredistribution.pdf, id=16, 462.52798pt x 346.89601pt>
+<plots/bayes/Scoredistribution.pdf, id=40, 462.52798pt x 346.89601pt>
 File: plots/bayes/Scoredistribution.pdf Graphic file (type pdf)
 <use plots/bayes/Scoredistribution.pdf>
 Package luatex.def Info: plots/bayes/Scoredistribution.pdf  used on input line 1
-4.
+7.
 (luatex.def)             Requested size: 292.7776pt x 219.59369pt.
-<plots/bayes/precrecathresh.pdf, id=17, 578.16pt x 397.485pt>
+<plots/bayes/precrecathresh.pdf, id=41, 578.16pt x 397.485pt>
 File: plots/bayes/precrecathresh.pdf Graphic file (type pdf)
 <use plots/bayes/precrecathresh.pdf>
-Package luatex.def Info: plots/bayes/precrecathresh.pdf  used on input line 21.
+Package luatex.def Info: plots/bayes/precrecathresh.pdf  used on input line 24.
 (luatex.def)             Requested size: 292.7776pt x 201.2833pt.
-<plots/neigh/ROC.pdf, id=18, 462.52798pt x 346.89601pt>
+<plots/neigh/ROC.pdf, id=42, 462.52798pt x 346.89601pt>
 File: plots/neigh/ROC.pdf Graphic file (type pdf)
 <use plots/neigh/ROC.pdf>
-Package luatex.def Info: plots/neigh/ROC.pdf  used on input line 31.
+Package luatex.def Info: plots/neigh/ROC.pdf  used on input line 34.
 (luatex.def)             Requested size: 292.7776pt x 219.59369pt.
-<plots/neigh/Scoredistribution.pdf, id=19, 462.52798pt x 346.89601pt>
+<plots/neigh/Scoredistribution.pdf, id=43, 462.52798pt x 346.89601pt>
 File: plots/neigh/Scoredistribution.pdf Graphic file (type pdf)
 <use plots/neigh/Scoredistribution.pdf>
-Package luatex.def Info: plots/neigh/Scoredistribution.pdf  used on input line 3
-8.
+Package luatex.def Info: plots/neigh/Scoredistribution.pdf  used on input line 4
+1.
 (luatex.def)             Requested size: 292.7776pt x 219.59369pt.
-<plots/neigh/precrecathresh.pdf, id=20, 578.16pt x 397.485pt>
+<plots/neigh/precrecathresh.pdf, id=44, 578.16pt x 397.485pt>
 File: plots/neigh/precrecathresh.pdf Graphic file (type pdf)
 <use plots/neigh/precrecathresh.pdf>
-Package luatex.def Info: plots/neigh/precrecathresh.pdf  used on input line 45.
+Package luatex.def Info: plots/neigh/precrecathresh.pdf  used on input line 48.
 (luatex.def)             Requested size: 292.7776pt x 201.2833pt.
-<plots/forest/ROC.pdf, id=21, 462.52798pt x 346.89601pt>
+<plots/forest/ROC.pdf, id=45, 462.52798pt x 346.89601pt>
 File: plots/forest/ROC.pdf Graphic file (type pdf)
 <use plots/forest/ROC.pdf>
-Package luatex.def Info: plots/forest/ROC.pdf  used on input line 55.
+Package luatex.def Info: plots/forest/ROC.pdf  used on input line 58.
 (luatex.def)             Requested size: 292.7776pt x 219.59369pt.
-<plots/forest/Scoredistribution.pdf, id=22, 462.52798pt x 346.89601pt>
+<plots/forest/Scoredistribution.pdf, id=46, 462.52798pt x 346.89601pt>
 File: plots/forest/Scoredistribution.pdf Graphic file (type pdf)
 <use plots/forest/Scoredistribution.pdf>
 Package luatex.def Info: plots/forest/Scoredistribution.pdf  used on input line 
-62.
+65.
 (luatex.def)             Requested size: 292.7776pt x 219.59369pt.
-<plots/forest/precrecathresh.pdf, id=23, 578.16pt x 397.485pt>
+<plots/forest/precrecathresh.pdf, id=47, 578.16pt x 397.485pt>
 File: plots/forest/precrecathresh.pdf Graphic file (type pdf)
 <use plots/forest/precrecathresh.pdf>
-Package luatex.def Info: plots/forest/precrecathresh.pdf  used on input line 69.
+Package luatex.def Info: plots/forest/precrecathresh.pdf  used on input line 72.
 
 (luatex.def)             Requested size: 292.7776pt x 201.2833pt.
-) (./content/diskussion.tex [2
-
-<./plots/bayes/ROC.pdf>] [3<./plots/bayes/Scoredistribution.pdf><./plots/bayes/p
-recrecathresh.pdf>]
-[4<./plots/neigh/ROC.pdf><./plots/neigh/Scoredistribution.pdf>] [5<./plots/neigh
-/precrecathresh.pdf><./plots/forest/ROC.pdf>] [6<./plots/forest/Scoredistributio
-n.pdf><./plots/forest/precrecathresh.pdf>])
+) (./content/diskussion.tex [4] [5<./plots/bayes/ROC.pdf><./plots/bayes/Scoredis
+tribution.pdf>] [6<./plots/bayes/precrecathresh.pdf><./plots/neigh/ROC.pdf>] [7
+<./plots/neigh/Scoredistribution.pdf><./plots/neigh/precrecathresh.pdf>] [8<./pl
+ots/forest/ROC.pdf><./plots/forest/Scoredistribution.pdf>])
 
 LaTeX Warning: Empty bibliography on input line 23.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 25.
-[7]
+[9<./plots/forest/precrecathresh.pdf>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 25.
  (./main.aux
 luatex-hyphen: loading patterns and exceptions for: german (\language4)
@@ -2239,31 +2253,42 @@ luatex-hyphen: info: no hyphenation exceptions for this language
 Language ngerman already loaded; id is 8)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 25.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 25.
+
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                main
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'main.run.xml'.
 
 \openout1 = main.run.xml
 )
 
 Here is how much of LuaTeX's memory you used:
- 40201 strings out of 494480
+ 40514 strings out of 494480
  100000,1648299 words of node,token memory allocated
- 562 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 7 attribute, 72 glue_spec, 7 attrib
-ute_list, 1 write nodes
-   avail lists: 1:2,2:551,3:200,4:23,5:109,6:995,7:341,8:73,9:156,10:8,11:98
- 43219 multiletter control sequences out of 65536+600000
- 82 fonts using 24016887 bytes
- 61i,6n,104p,8841b,886s stack positions out of 5000i,500n,10000p,200000b,100000s
-</home/carlo/.local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman10-r
-egular.otf></home/carlo/.local/texlive/2017/texmf-dist/fonts/opentype/public/lm/
-lmroman10-bold.otf></home/carlo/.local/texlive/2017/texmf-dist/fonts/opentype/pu
-blic/lm/lmroman12-regular.otf></home/carlo/.local/texlive/2017/texmf-dist/fonts/
-opentype/public/lm/lmsans10-bold.otf></home/carlo/.local/texlive/2017/texmf-dist
-/fonts/opentype/public/lm/lmroman12-bold.otf>
-Output written on main.pdf (7 pages, 194765 bytes).
+ 590 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 14 attribute, 72 glue_spec, 14 attr
+ibute_list, 1 write nodes
+   avail lists: 1:2,2:645,3:209,4:39,5:263,6:2898,7:653,8:73,9:199,10:19,11:331
+ 43482 multiletter control sequences out of 65536+600000
+ 120 fonts using 35811791 bytes
+ 61i,7n,104p,8841b,2598s stack positions out of 5000i,500n,10000p,200000b,100000s
+</home/carlo/.local/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman10-b
+old.otf></home/carlo/.local/texlive/2017/texmf-dist/fonts/opentype/public/lm-mat
+h/latinmodern-math.otf></home/carlo/.local/texlive/2017/texmf-dist/fonts/opentyp
+e/public/lm/lmmono10-regular.otf></home/carlo/.local/texlive/2017/texmf-dist/fon
+ts/opentype/public/lm/lmroman10-regular.otf></home/carlo/.local/texlive/2017/tex
+mf-dist/fonts/opentype/public/lm/lmroman12-regular.otf></home/carlo/.local/texli
+ve/2017/texmf-dist/fonts/opentype/public/lm/lmsans10-bold.otf></home/carlo/.loca
+l/texlive/2017/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf>
+Output written on main.pdf (9 pages, 215689 bytes).
 
-PDF statistics: 362 PDF objects out of 1000 (max. 8388607)
- 245 compressed objects within 3 object streams
- 25 named destinations out of 1000 (max. 131072)
- 65 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 416 PDF objects out of 1000 (max. 8388607)
+ 291 compressed objects within 3 object streams
+ 37 named destinations out of 1000 (max. 131072)
+ 113 words of extra memory for PDF output out of 10000 (max. 100000000)
 

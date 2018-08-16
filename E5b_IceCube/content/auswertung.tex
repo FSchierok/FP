@@ -1,8 +1,32 @@
 \section{Auswertung}
 
+
+\subsection{Die Feature-Selection}
+
+Zur Auswahl der wichtigsten Features wird die im Abschnitt \ref{fs} beschriebene Methode verwendet. Der Parameter $k$ wird dabei für die drei untersuchten Klassifikatoren auf den Wert $k = 26$ gesetzt, da sich ab diesem Wert die im Folgenden betrachteten Güte-Werte der Klassifikatoren annähernd konstant sind und die benötigte Rechenzeit nur weiter zunimmt.
+
+
 \subsection{Der Naive-Bayes-Klassifikator}
 
+Als erster Lerner wird der Naive-Bayes-Klassifikator verwendet. Der Klassifikator gibt mithilfe der Methode \texttt{prodict\_probas} nach dem Fit durch die Trainings-Events eine Liste von Wahrscheinlichkeiten für die Test-Events aus, welche mit der richtigen und bekannten Klassifikation verglichen werden können. Im Plot \ref{fig:NB_SD} ist die Verteilung der korrekt zugeordneten Events (aufgeteilt in Signal und Untergrund) in Abhängigkeit vom Score aufgetragen. Der Score bezeichnet die Wahrscheinlichkeit, oberhalb von der ein Event als Signal klassifiziert wird. Die Gesamtzahl der zu klassifizierenden Events ist 10000, die sich gleichmäßig auf Signal-Events und Background-Events aufteilen. Während die korrekte Klassifizierung von Background-Events für Scores zwischen 0.1 und 0.9 einen annähernd konstanten Wert erreicht, steigt die Anzahl der korrekt identifizierten Signal-Events mit steigendem Score.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{plots/bayes/Scoredistribution}
+	\caption{Plot der Scoreverteilung des Naive-Bayes-Klassifikators.}
+	\label{fig:NB_SD}
+\end{figure}
+
+Werden Präzision und Reinheit in Abhängigkeit vom Score geplottet, ergeben sich die in Abbildung \ref{fig:NB_PRT} dargestellten Zusammenhänge: Während die Präzision einen annähernd konstanten Wert von 90\%, über den score-Bereich zwischen 0.1 und 0.9 erreicht, liegt die Effizienz z.T. deutlich darunter und sinkt mit größer gewähltem Score bis hin zu Werten von ca. 40\%. Je nach benötigter Effizienz des Lerners ist also ein niedrig gewählter Scorecut ratsam.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{plots/bayes/precrecathresh}
+	\caption{Plot der Abhängigkeit von Präzision und Effizienz in Abhängigkeit vom Scorecut beim Naive-Bayes-Klassifikator.}
+	\label{fig:NB_PRT}
+\end{figure}
+
+In Abbildung \ref{fig:NB_ROC} ist die \enquote{Receiver-Operating-Characteristic}-Kurve (kurz: ROC) für den Naive-Bayes-Klassifikator abgebildet. Zur Erstellung der Kurve werden für verschiedene Scorecuts die True-Positive-Rate (die Wahrscheinlichkeit für die korrekte Klassifikation eines Signals) und die False-Positive-Rate (die Wahrscheinlichkeit für eine falsche Klassifikation zu einem Signal) aufeinander aufgetragen. Die Fläche unter der Kurve (\textit{engl.} area under curve, kurz: AUC) beträgt 0.91 und kann als Güte des Lerners interpretiert werden. Im schlechtesten Fall beträgt sie 0.5, was einer zufälligen Klassifikation gleichkommt (angedeutet durch die gestrichelte Linie in Abbildung \ref{fig:NB_ROC}). Im besten Fall wäre die AUC 1.0: Diese Fläche entspräche einer perfekten Klassifikation. 
 
 
 \begin{figure}
@@ -12,29 +36,9 @@
 	\label{fig:NB_ROC}
 \end{figure}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{plots/bayes/Scoredistribution}
-	\caption{Plot der Scoreverteilung des Naive-Bayes-Klassifikators.}
-	\label{fig:NB_SD}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{plots/bayes/precrecathresh}
-	\caption{Plot der Abhängigkeit von Präzision und Effizienz in Abhängigkeit vom Scorecut beim Naive-Bayes-Klassifikator.}
-	\label{fig:NB_PRT}
-\end{figure}
-
 
 \subsection{Der Nearest-Neighbors-Klassifikator}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{plots/neigh/ROC}
-	\caption{Plot der ROC-Kurve des Nearest-Neighbors-Klassifikators.}
-	\label{fig:NN_ROC}
-\end{figure}
 
 \begin{figure}
 	\centering
@@ -51,14 +55,17 @@
 \end{figure}
 
 
-\subsection{Der Random-Forest-Klassifikator}
-
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{plots/forest/ROC}
-	\caption{Plot der ROC-Kurve des Random-Forest-Klassifikators.}
-	\label{fig:RF_ROC}
+	\includegraphics[width=0.7\linewidth]{plots/neigh/ROC}
+	\caption{Plot der ROC-Kurve des Nearest-Neighbors-Klassifikators.}
+	\label{fig:NN_ROC}
 \end{figure}
+
+
+
+\subsection{Der Random-Forest-Klassifikator}
+
 
 \begin{figure}
 	\centering
@@ -74,5 +81,13 @@
 	\label{fig:RF_PRT}
 \end{figure}
 
-% TODO
-% jeweils: drei Plots, Zeit, Beispielzahlen für 90% Präzision, ggf. wichtigste Attribute
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{plots/forest/ROC}
+	\caption{Plot der ROC-Kurve des Random-Forest-Klassifikators.}
+	\label{fig:RF_ROC}
+\end{figure}
+
+
+\subsection{Vergleich der Klassifikatoren}
+
