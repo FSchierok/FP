@@ -3,7 +3,7 @@
 Das IceCube-Experiment besteht aus einem Array aus Photodedektoren, die am geografischen Südpol im Eis eingefroren sind. Dabei befinden sich 5160 Photodedektoren in einer Tiefe zwischen $\SI{1450}{\meter}$ und $\SI{2450}{\meter}$. Ziel ist es, kosmische Neutrinos zu detektieren. Dazu wird nach Cerenkovlicht von Sekundärteilchen gesucht, die in Neutrinowechselwirkungen entstehen. Da aber noch viele andere Teilchen das Array durchqueren, müssen die gemessenen Events gefiltert werden. Ein erster Filter ist die Richtung, aus der das Teilchen kam. Die gesuchten Neutrinos stammen von \enquote{unten}, sodass die Erde als Abschirmung gegen die restliche Kosmische Strahlung wirkt. Da die Richtungsauflösung aber ungenau ist, müssen weitere Filter angewandt werden, um ein Signal mit akzeptabler Messungenauigkeit zu erhalten. Diese Klassifikation wird durch machine learning ermöglicht. 
 
 \subsection{Machine learning}
-Machine learning wird oft zur Klassifizierung von Datensätzen eingesetzt. Beim supervised learning wird dazu ein Lerner mit bereits klassifizierten Events trainiert. Die verwendeten Datensätze bestehen dabei aus Listen von Events und jeweiligen Features des Events. Diese Features haben im Allgemeinen einen unterschiedlichen Informationsgehalt -- eine Auswahl einzelner Features (\enquote{ Feature-Selection}) kann die Rechenzeit verringern und das Phänomen des \enquote{Überlernens} verhindern.
+Machine learning kann zur Klassifizierung von Events eingesetzt werden. Beim supervised learning wird dazu ein Lerner mit bereits klassifizierten Events trainiert. Die verwendeten Datensätze bestehen dabei aus Listen von Events und physikalischen Eigenschaften, genannt Features, des jeweiligen Events. Diese Features haben im Allgemeinen einen unterschiedlichen Informationsgehalt -- eine Auswahl einzelner Features (\enquote{Feature-Selection}) kann die Rechenzeit verringern und das Phänomen des \enquote{Überlernens} verhindern.
 
 \subsection{Feature-Selection}
 \label{fs}
@@ -41,24 +41,24 @@ Für Klassifikationen durch mehrere Features wird das Produkt der Einzelquotient
 
 \subsection{k-Nearest-Neighbors}
 Beim k-Nearest-Neighbors-Lerner  werden die Features als Dimensionen eines Vektorraums interpretiert. Die einzelnen Daten entsprechen Ortsvektoren in diesem Raum. Bei einem zu
-klassifizierenden Punkt wird dann über die $k$ nächsten Datenpunkte gemittelt. Für die Berechnung der Abstände wird ein euklidisches Abstandsmaß verwendet.
+klassifizierenden Punkt wird dann über die $k$ nächsten Datenpunkte gemittelt. Für die Berechnung der Abstände wird hier ein euklidisches Abstandsmaß verwendet.
 
 
-\subsection{Random Forest}
-Der Random Forest ist eine Menge unkorrelierter Entscheidungsbäume, wobei an jedem Knoten eine zufällige Entscheidung getroffen wird. Jedem Blatt ist eine Klassifizierung zugeordnet.
-In der Regel wird nicht nur ein Baum aufgestellt, sondern über eine Vielzahl solcher gemittelt. Dadurch wird ein Übertrainieren, das heißt eine Spezialisierung auf die Trainingsdaten verhindert.
+\subsection{Random-Forest}
+Der Random-Forest besteht aus einer Menge unkorrelierter Entscheidungsbäume, wobei an jedem Knoten eines Baumes jeweils eine zufällige Entscheidung getroffen wird. Jedem Blatt ist eine Klassifizierung zugeordnet.
+Die letztendliche Klassifizierung eines Events entsteht durch das Mitteln über die Klassifizierung der einzelnen Bäume.
 
 
 \subsection{Bewertung}
 Eine Binäre Klassifizierung kann vier Ergebnisse haben: Signal als Signal erkannt (true-positive: $tp$), Signal als Untergrund erkannt (false-negative: $fn$),
 Untergrund als Signal erkannt (false-positive: $f$p) und Untergrund als Untergrund erkannt (true-negative: $tn$). Damit lassen sich Größen zur Bewertung eines
-Lerners definieren. Die Präzision $p$ gibt an, wie wahrscheinlich ein als Signal klassifiziertes Event auch ein Signal ist. Sie wird berechnet nach
+Lerners definieren. Die Präzision (\textit{engl.} precision) $p$ gibt an, wie wahrscheinlich ein als Signal klassifiziertes Event auch ein Signal ist. Sie wird berechnet nach
 
 \begin{equation}
 	p=\frac{tp}{tp+fp}.
 \end{equation}
 
-Das zweite Merkmal ist die Effizienz $r$. Sie gibt an, wie groß der Anteil der Signale, die fälschlicherweise als Untergrund klassifiziert wurden. Sie wird nach
+Das zweite Merkmal ist die Effizienz (\textit{engl.} recall) $r$. Sie gibt die Größe des Anteils der Signale an, die fälschlicherweise als Untergrund klassifiziert wurden. Sie wird nach
 
 \begin{equation}
 	r=\frac{tp}{tp+fn}
@@ -66,4 +66,4 @@ Das zweite Merkmal ist die Effizienz $r$. Sie gibt an, wie groß der Anteil der 
 
 berechnet. Um diese Kenngrößen zu bestimmen, muss der Lerner Daten bekommen, mit denen er nicht trainiert wurde, für die aber trotzdem die richtige Klassifizierung bekannt
 ist. Dazu teilt man die vorhandenen Event-Datensätze in $n$ Teile und trainiert mit $n-1$ Teilen. Der verbliebene Teil der Daten wird zum Testen verwenden. Dieser Vorgang
-sollte so wiederholt werden, dass jeder Teil einmal zum Testen des Lerners genutzt wurde. Dadurch kann ein Mittelwert und Fehler für die Merkmale bestimmt werden. Das Vorgehen nennt sich \enquote{Kreuzvalidierung}.
+kann so wiederholt werden, dass jeder Teil einmal zum Testen des Lerners genutzt wurde. Dadurch kann ein Mittelwert und Fehler für die Merkmale bestimmt werden. Das Vorgehen nennt sich \enquote{Kreuzvalidierung}.

@@ -68,23 +68,24 @@ expected = data_test_y
 predicted = nbayes.predict(data_test_X)
 predicted_probs = nbayes.predict_proba(data_test_X)
 
-
-# ROC
-from sklearn.metrics import roc_curve, roc_auc_score
-y_score = predicted_probs[:, 1]
-fprate, tprate, threshold = roc_curve(expected, y_score)
-auc = roc_auc_score(expected, y_score)
-# Plot ROC curve
-fig1 = plt.figure(1)
-ax1 = fig1.add_subplot(111)
-ax1.set_title('Receiver Operating Characteristic')
-ax1.plot(fprate, tprate, label = "AUC = %0.2f" % auc)
-ax1.plot([0, 1], ls="--")
-ax1.set_ylabel('True Positive Rate')
-ax1.set_xlabel('False Positive Rate')
-ax1.legend()
-fig1.savefig("plots/bayes/ROC.pdf")
-
+print(time.clock())
+#
+# # ROC
+# from sklearn.metrics import roc_curve, roc_auc_score
+# y_score = predicted_probs[:, 1]
+# fprate, tprate, threshold = roc_curve(expected, y_score)
+# auc = roc_auc_score(expected, y_score)
+# # Plot ROC curve
+# fig1 = plt.figure(1)
+# ax1 = fig1.add_subplot(111)
+# ax1.set_title('Receiver Operating Characteristic')
+# ax1.plot(fprate, tprate, label = "AUC = %0.2f" % auc)
+# ax1.plot([0, 1], ls="--")
+# ax1.set_ylabel('True Positive Rate')
+# ax1.set_xlabel('False Positive Rate')
+# ax1.legend()
+# fig1.savefig("plots/bayes/ROC.pdf")
+#
 # Plot Scoreverteilung, Ziel: https://docs.aws.amazon.com/machine-learning/latest/dg/binary-classification.html
 from sklearn.metrics import confusion_matrix
 def num_tp(score):
@@ -109,21 +110,22 @@ score = np.linspace(0, 1, 1000)
 ax3.plot(score, num_tp1, "-", label = "Signal")
 ax3.plot(score, num_tn1, "-", label = "Background")
 ax3.set_ylabel("Anzahl")
-ax3.set_xlabel("Score")
+ax3.set_xlabel("Scorecut")
 ax3.legend()
 fig3.savefig("plots/bayes/Scoredistribution.pdf")
 
-# precision recall threshold curve
-# https://www.kaggle.com/kevinarvai/fine-tuning-a-classifier-in-scikit-learn, http://www.scikit-yb.org/en/latest/api/classifier/threshold.html
-from yellowbrick.classifier import DiscriminationThreshold
-fig5 = plt.figure(5)
-ax5 = fig5.add_subplot(111)
-visualizer = DiscriminationThreshold(nbayes, exclude = ("queue_rate", "fscore"), ax = ax5)
-visualizer.fit(data_train_X, data_train_y)  # Fit the training data to the visualizer
-visualizer.poof(outpath="plots/bayes/prec_reca_thresh.pdf")     # Draw/show/poof the data
-
-print(time.clock())
-
-print(confusion_matrix(expected, (predicted_probs[:,1] > 0.6).astype(bool)))
+# # precision recall threshold curve
+# # https://www.kaggle.com/kevinarvai/fine-tuning-a-classifier-in-scikit-learn, http://www.scikit-yb.org/en/latest/api/classifier/threshold.html
+# from yellowbrick.classifier import DiscriminationThreshold
+# fig5 = plt.figure(5)
+# ax5 = fig5.add_subplot(111)
+# visualizer = DiscriminationThreshold(nbayes, exclude = ("queue_rate", "fscore"), ax = ax5)
+# visualizer.fit(data_train_X, data_train_y)  # Fit the training data to the visualizer
+# visualizer.poof(outpath="plots/bayes/precrecathresh.pdf")     # Draw/show/poof the data
+#
+#
+#
+from sklearn.metrics import confusion_matrix
+print(confusion_matrix(expected, (predicted_probs[:,1] > 0.445).astype(bool)))
 from sklearn.metrics import classification_report
-print(classification_report(expected, (predicted_probs[:,1] > 0.6).astype(bool)))
+print(classification_report(expected, (predicted_probs[:,1] > 0.445).astype(bool)))

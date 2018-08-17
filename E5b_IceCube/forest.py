@@ -24,9 +24,9 @@ from sklearn import metrics
 np.random.seed(2)
 
 # Input
-signal_pandas = pd.read_csv('data/signal_auch_ohne_MC.csv', sep=',')
+signal_pandas = pd.read_csv('data/signal_auch_noch_ohne_IDs.csv', sep=',')
 signal = signal_pandas.values
-background_pandas = pd.read_csv('data/background_auch_ohne_MC.csv', sep=',')
+background_pandas = pd.read_csv('data/background_auch_noch_ohne_IDs.csv', sep=',')
 background = background_pandas.values
 
 # Klassifikation in erste Spalte (für Signal "1", für Background "0")
@@ -52,8 +52,9 @@ from sklearn.feature_selection import SelectKBest
 def f_regression(X,Y):
    import sklearn
    return sklearn.feature_selection.f_regression(X,Y,center=False)
-data_X_selected = SelectKBest(score_func=f_regression, k=26).fit_transform(data_X, data_y)
-
+sel = SelectKBest(score_func=f_regression, k=26)
+data_X_selected = sel.fit_transform(data_X, data_y)
+print(sel.get_support(indices = True) )
 
 # Teile in Test- und Trainingsdaten auf. Shuffle mit seed 42
 from sklearn.model_selection import train_test_split
@@ -62,29 +63,29 @@ data_train_X, data_test_X, data_train_y, data_test_y  = train_test_split(data_X_
 
 # Lernen und überprüfen mit k next neighbors
 from sklearn.ensemble import RandomForestClassifier
-forest = RandomForestClassifier(n_estimators=10)
+forest = RandomForestClassifier(n_estimators=15)
 forest.fit(data_train_X, data_train_y)
 expected = data_test_y
 predicted = forest.predict(data_test_X)
 predicted_probs = forest.predict_proba(data_test_X)
-
-
-# ROC
-from sklearn.metrics import roc_curve, roc_auc_score
-y_score = predicted_probs[:, 1]
-fprate, tprate, threshold = roc_curve(expected, y_score)
-auc = roc_auc_score(expected, y_score)
-# Plot ROC curve
-fig1 = plt.figure(1)
-ax1 = fig1.add_subplot(111)
-ax1.set_title('Receiver Operating Characteristic')
-ax1.plot(fprate, tprate, label = "AUC = %0.2f" % auc)
-ax1.plot([0, 1], ls="--")
-ax1.set_ylabel('True Positive Rate')
-ax1.set_xlabel('False Positive Rate')
-ax1.legend()
-fig1.savefig("plots/forest/ROC.pdf")
-
+print(time.clock())
+#
+# # ROC
+# from sklearn.metrics import roc_curve, roc_auc_score
+# y_score = predicted_probs[:, 1]
+# fprate, tprate, threshold = roc_curve(expected, y_score)
+# auc = roc_auc_score(expected, y_score)
+# # Plot ROC curve
+# fig1 = plt.figure(1)
+# ax1 = fig1.add_subplot(111)
+# ax1.set_title('Receiver Operating Characteristic')
+# ax1.plot(fprate, tprate, label = "AUC = %0.2f" % auc)
+# ax1.plot([0, 1], ls="--")
+# ax1.set_ylabel('True Positive Rate')
+# ax1.set_xlabel('False Positive Rate')
+# ax1.legend()
+# fig1.savefig("plots/forest/ROC.pdf")
+#
 # Plot Scoreverteilung, Ziel: https://docs.aws.amazon.com/machine-learning/latest/dg/binary-classification.html
 from sklearn.metrics import confusion_matrix
 def num_tp(score):
@@ -106,46 +107,50 @@ fig3 = plt.figure(3)
 ax3 = fig3.add_subplot(111)
 ax3.set_title('Scoreverteilung')
 score = np.linspace(0, 1, 1000)
-ax3.plot(score, num_tp1, "-", label = "\# of true positives")
-ax3.plot(score, num_tn1, "-", label = "\# of true negatives")
+ax3.plot(score, num_tp1, "-", label = "Signal")
+ax3.plot(score, num_tn1, "-", label = "Background")
 ax3.set_ylabel("Anzahl")
-ax3.set_xlabel("Score")
+ax3.set_xlabel("Scorecut")
 ax3.legend()
 fig3.savefig("plots/forest/Scoredistribution.pdf")
-
-# precision recall threshold curve
-# https://www.kaggle.com/kevinarvai/fine-tuning-a-classifier-in-scikit-learn, http://www.scikit-yb.org/en/latest/api/classifier/threshold.html
-from yellowbrick.classifier import DiscriminationThreshold
-fig5 = plt.figure(5)
-ax5 = fig5.add_subplot(111)
-visualizer = DiscriminationThreshold(forest, exclude = ("queue_rate", "fscore"), ax = ax5)
-visualizer.fit(data_train_X, data_train_y)  # Fit the training data to the visualizer
-visualizer.poof(outpath="plots/forest/prec_reca_thresh.pdf")     # Draw/show/poof the data
-
-print(time.clock())
-
-print(confusion_matrix(expected, (predicted_probs[:,1] > 0.3).astype(bool)))
+#
+# # precision recall threshold curve
+# # https://www.kaggle.com/kevinarvai/fine-tuning-a-classifier-in-scikit-learn, http://www.scikit-yb.org/en/latest/api/classifier/threshold.html
+# from yellowbrick.classifier import DiscriminationThreshold
+# fig5 = plt.figure(5)
+# ax5 = fig5.add_subplot(111)
+# visualizer = DiscriminationThreshold(forest, exclude = ("queue_rate", "fscore"), ax = ax5)
+# visualizer.fit(data_train_X, data_train_y)  # Fit the training data to the visualizer
+# visualizer.poof(outpath="plots/forest/precrecathresh.pdf")     # Draw/show/poof the data
+#
+# print(time.clock())
+#
+# print(confusion_matrix(expected, (predicted_probs[:,1] > 0.3).astype(bool)))
+# from sklearn.metrics import classification_report
+# print(classification_report(expected, (predicted_probs[:,1] > 0.3).astype(bool)))
+#
+#
+# # http://www.scikit-yb.org/en/latest/api/features/importances.html
+# from yellowbrick.features.importances import FeatureImportances
+#
+# importances = forest.feature_importances_
+# indices = np.argsort(importances)[::-1]
+#
+# # Print the Top 20 feature ranking
+# print("Feature ranking:")
+# for f in range(20):
+#     print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
+#
+# # Plot the 20 largest feature importances
+# fig0 = plt.figure(0)
+# ax0 = fig0.add_subplot(111)
+# ax0.set_title("Die 20 wichtigsten Features")
+# ax0.bar(range(20), importances[indices[0:20]], align="center")
+# ax0.set_ylabel("importance")
+# ax0.set_xticks(range(20))
+# ax0.set_xticklabels(indices[0:20])
+# fig0.savefig("plots/forest/featureImportance.pdf")
+from sklearn.metrics import confusion_matrix
+print(confusion_matrix(expected, (predicted_probs[:,1] > 0.75).astype(bool)))
 from sklearn.metrics import classification_report
-print(classification_report(expected, (predicted_probs[:,1] > 0.3).astype(bool)))
-
-
-# http://www.scikit-yb.org/en/latest/api/features/importances.html
-from yellowbrick.features.importances import FeatureImportances
-
-importances = forest.feature_importances_
-indices = np.argsort(importances)[::-1]
-
-# Print the Top 20 feature ranking
-print("Feature ranking:")
-for f in range(20):
-    print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
-
-# Plot the 20 largest feature importances
-fig0 = plt.figure(0)
-ax0 = fig0.add_subplot(111)
-ax0.set_title("Die 20 wichtigsten Features")
-ax0.bar(range(20), importances[indices[0:20]], align="center")
-ax0.set_ylabel("importance")
-ax0.set_xticks(range(20))
-ax0.set_xticklabels(indices[0:20])
-fig0.savefig("plots/forest/featureImportance.pdf")
+print(classification_report(expected, (predicted_probs[:,1] > 0.75).astype(bool)))
