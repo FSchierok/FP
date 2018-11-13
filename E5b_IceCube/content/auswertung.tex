@@ -3,12 +3,60 @@
 
 \subsection{Die Feature-Selection}
 
-Zur Auswahl der wichtigsten Features wird die im Abschnitt \ref{fs} beschriebene Methode verwendet. Der Parameter $k$ wird dabei für die drei untersuchten Klassifikatoren auf den Wert $k = 26$ gesetzt, da ab diesem Wert die im Folgenden betrachteten Güte-Werte der Klassifikatoren annähernd konstant sind und die benötigte Rechenzeit nur weiter zunimmt.
+Zur Auswahl der wichtigsten Features wird die im Abschnitt \ref{fs} beschriebene Methode verwendet. Der Parameter $k$ wird dabei für die drei untersuchten Klassifikatoren auf den Wert $k = 26$ gesetzt, da ab diesem Wert der Jaccard-Index \ref{eqn:jaccard} annähernd konstant ($J = 0.94$) ist und die benötigte Rechenzeit nur weiter zunimmt. Dies lässt sich auch dem Plot \ref{eqn:jaccard} entnehmen. Zur Berechnung des Jaccard-Index wurde der Random-Forest-Klassifikator (s.u.) verwendet. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{plots/jaccard}
+\caption{Plot des Jaccard-Index auf die Anzahl der Features in der \texttt{SelectKBest} Feature Selection.}
+\label{fig:jaccard}
+\end{figure}
+
+Die 26 Features, die nach der Feature-Selection übrig bleiben sind in Tabelle \ref{tab:FSel} aufgelistet.
+
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{ll}
+		\toprule
+		Index & Feature                                                           \\ \midrule
+		0     & \texttt{HitStatisticsValues.cog\_z\_sigma}                        \\
+		1     & \texttt{HitStatisticsValues.z\_sigma}                             \\
+		2     & \texttt{LineFit\_TT.zenith}                                       \\
+		3     & \texttt{LineFit\_TTParams.lf\_vel}                                \\
+		4     & \texttt{LineFit\_TTParams.lf\_vel\_z}                             \\
+		5     & \texttt{MPEFitHighNoise.zenith}                                   \\
+		6     & \texttt{MPEFitParaboloid.zenith}                                  \\
+		7     & \texttt{MPEFitParaboloidFitParams.zenith}                         \\
+		8     & \texttt{MPEFit\_TT.zenith}                                        \\
+		9     & \texttt{MuEXAngular4.zenith}                                      \\
+		10    & \texttt{SPEFit2BayesianFitParams.rlogl}                           \\
+		11    & \texttt{SPEFit2\_TT.zenith}                                       \\
+		12    & \texttt{SPEFit2\_TTFitParams.rlogl}                               \\
+		13    & \texttt{SplineMPE.zenith}                                         \\
+		14    & \texttt{SplineMPECharacteristics.track\_hits\_separation\_length} \\
+		15    & \texttt{SplineMPEDirectHitsA.n\_dir\_strings}                     \\
+		16    & \texttt{SplineMPEDirectHitsA.n\_dir\_doms}                        \\
+		17    & \texttt{SplineMPEDirectHitsC.dir\_track\_length}                  \\
+		18    & \texttt{SplineMPEDirectHitsC.n\_dir\_strings}                     \\
+		19    & \texttt{SplineMPEDirectHitsC.n\_dir\_doms}                        \\
+		20    & \texttt{SplineMPEDirectHitsE.n\_dir\_strings}                     \\
+		21    & \texttt{SplineMPEDirectHitsE.n\_dir\_doms}                        \\
+		22    & \texttt{SplineMPEMuEXDifferential.zenith}                         \\
+		23    & \texttt{SplineMPETruncatedEnergy\_SPICEMie\_AllDOMS\_Muon.zenith} \\
+		24    & \texttt{SplineMPETruncatedEnergy\_SPICEMie\_AllBINS\_Muon.zenith} \\
+		25    & \texttt{NewAtt.DirectEllipse}                                     \\ \bottomrule
+	\end{tabular}
+	\bigskip
+	\caption{Tabelle der Attribute für die folgende Datenauswertung nach der Feature-Auswahl. Die Indizes aus der ersten Tabellenspalte werden in Abbildung \ref{fig:RF_FI} verwendet.}
+	\label{tab:FSel}
+\end{table}
+
 
 
 \subsection{Der Naive-Bayes-Klassifikator}
 
-Als erster Lerner wird der Naive-Bayes-Klassifikator verwendet. Der Klassifikator gibt mithilfe der Methode \texttt{prodict\_proba} nach dem Fit durch die Trainings-Events eine Liste von Wahrscheinlichkeiten für die Test-Events aus, welche mit der richtigen und bekannten Klassifikation verglichen werden können. In Abbildung \ref{fig:NB_SD} ist die Verteilung der korrekt zugeordneten Events (aufgeteilt in Signal und Untergrund) in Abhängigkeit vom Scorecut aufgetragen. Der Scorecut bezeichnet die Wahrscheinlichkeit, oberhalb von der ein Event als Signal klassifiziert wird. Die Gesamtzahl der zu klassifizierenden Events ist 10000, die sich gleichmäßig auf Signal-Events und Background-Events aufteilen. Während die korrekte Klassifizierung von Background-Events für Scorecuts zwischen 0.1 und 0.9 einen annähernd konstanten Wert erreicht, steigt die Anzahl der korrekt identifizierten Signal-Events mit steigendem Scorecut.
+Als erster Lerner wird der Naive-Bayes-Klassifikator verwendet. Der Klassifikator gibt mithilfe der Methode \texttt{predict\_probs} nach dem Fit durch die Trainings-Events eine Liste von Wahrscheinlichkeiten für die Test-Events aus, welche mit der richtigen und bekannten Klassifikation verglichen werden können. In Abbildung \ref{fig:NB_SD} ist die Verteilung der korrekt zugeordneten Events (aufgeteilt in Signal und Untergrund) in Abhängigkeit vom Scorecut aufgetragen. Die Gesamtzahl der zu klassifizierenden Events ist 10000, die sich gleichmäßig auf Signal-Events und Background-Events aufteilen. Während die korrekte Klassifizierung von Background-Events für Scorecuts zwischen 0.1 und 0.9 einen annähernd konstanten Wert erreicht, steigt die Anzahl der korrekt identifizierten Signal-Events mit steigendem Scorecut.
 
 \begin{figure}
 	\centering
@@ -26,7 +74,7 @@ Werden Präzision und Reinheit in Abhängigkeit vom Scorecut geplottet, ergeben 
 	\label{fig:NB_PRT}
 \end{figure}
 
-In Abbildung \ref{fig:NB_ROC} ist die \enquote{Receiver-Operating-Characteristic}-Kurve (kurz: ROC) für den Naive-Bayes-Klassifikator abgebildet. Zur Erstellung der Kurve werden für verschiedene Scorecuts die True-Positive-Rate (die Wahrscheinlichkeit für die korrekte Klassifikation eines Signals) und die False-Positive-Rate (die Wahrscheinlichkeit für eine falsche Klassifikation zu einem Signal) aufeinander aufgetragen. Die Fläche unter der Kurve (\textit{engl.} area under curve, kurz: AUC) beträgt 0.91 und kann als Güte des Lerners interpretiert werden. Im schlechtesten Fall beträgt sie 0.5, was einer zufälligen Klassifikation gleichkommt (angedeutet durch die gestrichelte Linie in Abbildung \ref{fig:NB_ROC}). Im besten Fall wäre die AUC 1.0: Diese Fläche entspräche einer perfekten Klassifikation. 
+In Abbildung \ref{fig:NB_ROC} ist die ROC-Kurve für den Naive-Bayes-Klassifikator abgebildet. Die Fläche unter der Kurve  beträgt 0.91.
 
 
 \begin{figure}
@@ -39,7 +87,15 @@ In Abbildung \ref{fig:NB_ROC} ist die \enquote{Receiver-Operating-Characteristic
 
 \subsection{Der k-Nearest-Neighbors-Klassifikator}
 
-Analog zum Naive-Bayes-Klassifikator ergeben sich für den k-Nearest-Neighbors-Klas\-si\-fi\-ka\-tor die in den Abbildungen \ref{fig:NN_SD}, \ref{fig:NN_PRT} und \ref{fig:NN_ROC} dargestellten Plots. Zur Berechnung von \texttt{predict\_proba} werden $k = 15$ nächste Nachbarn verwendet, da sich hiermit in diesem Fall die höchste Präzision erreichen lässt. Abbildung \ref{fig:NN_SD} zeigt die Scoreverteilung für den k-Nearest-Neighbors-Klassifikator. Es liegen 15 Bins vor, da $k = 15$ gewählt wurde und somit die Wahrscheinlichkeit für die Klassifikation nur 15 verschiedene Werte annehmen kann. Auffällig im Vergleich zum Naive-Bayes-Klassifikator ist, dass die Verteilung deutlich symmetrischer ist. Diese Symmetrie findet sich auch wieder, wenn Präzision und Effizienz auf den Scorecut abgebildet werden (s. Abb. \ref{fig:NN_PRT}): Der Schnittpunkt der Graphen liegt deutlich näher an 50\% als beim vorangegangenen Klassifikator. Auffällig ist auch, dass eine hohe Präzision direkt mit einer deutlich geringeren Effizienz einhergeht als beim Naive-Bayes-Klassifikator, da die Effizienz mit steigendem Scorecut schnell fällt. Die ROC-Kurve ist dagegen ein wenig weiter in der linken oberen Ecke zentriert (s. Abb. \ref{fig:NN_ROC}), was sich auch in einem höheren Flächeninhalt unter der Kurve von AUC = 0.93 wiederspiegelt.
+Analog zum Naive-Bayes-Klassifikator ergeben sich für den k-Nearest-Neighbors-Klas\-si\-fi\-ka\-tor die in den Abbildungen \ref{fig:NN_SD}, \ref{fig:NN_PRT} und \ref{fig:NN_ROC} dargestellten Plots. Zur Berechnung von \texttt{predict\_proba} werden $k = 15$ nächste Nachbarn verwendet, da sich hiermit in diesem Fall die höchste ROC-AUC erreichen lässt (s. Abb. \ref{fig:num_neigh}). Abbildung \ref{fig:NN_SD} zeigt die Scoreverteilung für den k-Nearest-Neighbors-Klassifikator. Es liegen 15 Bins vor, da $k = 15$ gewählt wurde und somit die Wahrscheinlichkeit für die Klassifikation nur 15 verschiedene Werte annehmen kann. Auffällig im Vergleich zum Naive-Bayes-Klassifikator ist, dass die Verteilung deutlich symmetrischer ist. Diese Symmetrie findet sich auch wieder, wenn Präzision und Effizienz auf den Scorecut abgebildet werden (s. Abb. \ref{fig:NN_PRT}): Der Schnittpunkt der Graphen liegt deutlich näher an 50\% als beim vorangegangenen Klassifikator. Auffällig ist auch, dass eine hohe Präzision direkt mit einer deutlich geringeren Effizienz einhergeht als beim Naive-Bayes-Klassifikator, da die Effizienz mit steigendem Scorecut schnell fällt. Die ROC-Kurve ist dagegen ein wenig weiter in der linken oberen Ecke zentriert (s. Abb. \ref{fig:NN_ROC}), was sich auch in einem höheren Flächeninhalt unter der Kurve von ROC-AUC = 0.93 wiederspiegelt.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{plots/number_neighbors}
+	\caption{Plot der ROC-AUC des Nearest-Neighbors-Klassifikators in Abhängigkeit von der Anzahl der verwendeten Nachbarn. Das Maximum befindet sich bei $k = 15$.}
+	\label{fig:num_neigh}
+\end{figure}
+
 
 \begin{figure}
 	\centering
@@ -67,9 +123,16 @@ Analog zum Naive-Bayes-Klassifikator ergeben sich für den k-Nearest-Neighbors-K
 
 \subsection{Der Random-Forest-Klassifikator}
 
-Der Random-Forest, der für diese Datenauswertung verwendet wurde, besteht aus 15 Bäumen, da sich hiermit ein guter Ausgleich zwischen verwendeter Rechenzeit und guter Leistung des Klassifikators erreicht werden konnte. Die Scoreverteilung in Abbildung \ref{fig:RF_SD} zeigt eine sehr eindeutige Trennung von Signal und Hintergrund für Scorecuts in Bereich um 45\%. Diese Eigenschaft kann auch der Abbildung \ref{fig:RF_PRT} entnommen werden, in der Präzision und Effizienz auf den Scorecut aufgetragen worden sind: Sowohl Präzision als auch Effizienz können durch die Wahl eines Scorecuts von ca. 45\% so gewählt werden, dass beide Werte bei ca. 95\% liegen. Mit einem Scorecut von 80\% ließe sich hingegen ein noch höhere Präzision von 99\% erreichen. Die Effizienz läge dabei immer noch bei einem (im Vergleich zu den anderen Lernern) sehr guten Wert von knapp 85\%. Entsprechend gut fällt auch die Bewertung durch die ROC-Kurve (s. Abb. \ref{fig:RF_ROC}) aus: Die AUC beträgt hier 0.98.
+Der Random-Forest, der für diese Datenauswertung verwendet wurde, besteht aus 30 Bäumen, da dadurch ein sehr guter ROC-AUC des Klassifikators erreicht werden konnte (s. Abb. \ref{fig:num_trees}), während die Rechenzeit nach wie vor gering bleibt. Die Scoreverteilung in Abbildung \ref{fig:RF_SD} zeigt eine sehr eindeutige Trennung von Signal und Hintergrund für Scorecuts in Bereich um 45\%. Diese Eigenschaft kann auch der Abbildung \ref{fig:RF_PRT} entnommen werden, in der Präzision und Effizienz auf den Scorecut aufgetragen worden sind: Sowohl Präzision als auch Effizienz können durch die Wahl eines Scorecuts von ca. 45\% so gewählt werden, dass beide Werte bei ca. 95\% liegen. Mit einem Scorecut von 80\% ließe sich hingegen ein noch höhere Präzision von 99\% erreichen. Die Effizienz läge dabei immer noch bei einem (im Vergleich zu den anderen Lernern) sehr guten Wert von knapp 85\%. Entsprechend gut fällt auch die Bewertung durch die ROC-Kurve (s. Abb. \ref{fig:RF_ROC}) aus: Die ROC-AUC beträgt hier 0.98.
 
-Im Gegensatz zu den anderen beiden Lernern kann beim Random-Forest zudem noch bewertet werden, welche Features am wichtigsten für die Klassifikation sind. Die Ergebnisse sind der Abbildung \ref{fig:RF_FI} zu entnehmen. Die Zahlen an den Balken entsprechen der Spaltennummer der entsprechenden Features nach der Feature-Selection. Die fünf am höchsten vom Random-Forest bewerteten Features sind in absteigender Reihenfolge \texttt{LineFit\_TT.zenith}, \texttt{LineFit\_TTParams.lf\_vel\_z}, \texttt{SPEFit2\_TT.zenith}, \texttt{Line\-Fit\_TT\-Params.lf\_vel} und \texttt{SplineMPEDirecHitsC.n\_dir\_doms}. 
+Im Gegensatz zu den anderen beiden Lernern kann beim Random-Forest zudem noch bewertet werden, welche Features am wichtigsten für die Klassifikation sind. Die Ergebnisse sind der Abbildung \ref{fig:RF_FI} zu entnehmen. Die Zahlen an den Balken entsprechen der Spaltennummer der entsprechenden Features nach der Feature-Selection. Die fünf am höchsten vom Random-Forest bewerteten Features sind in absteigender Reihenfolge \texttt{LineFit\_TTParams.lf\_vel\_z}, \texttt{LineFit\_TT.zenith}, \texttt{MPEFitParaboloid.zenith}, \texttt{SplineMPEDirectHitsC.n\_dir\_doms} und \texttt{LineFit\_TT.zenith}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{plots/number_trees}
+	\caption{Plot der ROC-AUC des Random-Forest-Klassifikators in Abhängigkeit von der Anzahl der verwendeten Entscheidungsbäume. Im Folgenden werden 30 Bäume verwendet.}
+	\label{fig:num_trees}
+\end{figure}
 
 \begin{figure}
 	\centering
@@ -96,14 +159,14 @@ Im Gegensatz zu den anderen beiden Lernern kann beim Random-Forest zudem noch be
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{plots/forest/featureImportance}
-	\caption{Die zwanzig wichtigsten Features beim Random-Forest-Klassifikator.}
+	\caption{Die zwanzig wichtigsten Features beim Random-Forest-Klassifikator. Die Features zu den verwendeten Indizes können der Tabelle \ref{tab:FSel} entnommen werden.}
 	\label{fig:RF_FI}
 \end{figure}
 
 
 \subsection{Vergleich der Laufzeit der Klassifikatoren}
 
-Die Spezifikation des verwendeten Prozessors zur Eventklassifikation lautet \texttt{Intel® Core™ i5-6200U CPU @ 2.30GHz × 4}. Die folgenden Zeitangaben beziehen sind jeweils auf einen der verwendeten Lerner und die zum Trainieren und Testen nötige Zeit. Um statistisch signifikante Werte zu erhalten wurde jeweils über 5 Durchgänge gemittelt. Der Naive-Bayes-Klassifikator benötigt $(23.1 \pm 0.2) \,\text{s}$. Fast zehn Sekunden schneller ist der k-Nearest-Neighbors-Klassifikator mit $(14.1 \pm 0.2) \,\text{s}$. Noch etwas weniger Zeit benötigt der Random-Forest-Klassifikator: Er braucht $(13.8 \pm 0.2) \,\text{s}$, bis die \texttt{predict\_proba} Methode ausgeführt wurde.\textsl{}
+Die Spezifikation des verwendeten Prozessors zur Eventklassifikation lautet \texttt{Intel® Core™ i5-6200U CPU @ 2.30GHz × 4}. Die folgenden Zeitangaben beziehen sind jeweils auf einen der verwendeten Lerner und die zum Trainieren und Testen nötige Zeit. Um statistisch signifikante Werte zu erhalten wurde jeweils über 5 Durchgänge gemittelt. Der Naive-Bayes-Klassifikator benötigt $(23.1 \pm 0.2) \,\text{s}$. Fast zehn Sekunden schneller ist der k-Nearest-Neighbors-Klassifikator mit $(14.1 \pm 0.2) \,\text{s}$. Dazwischen liegt der Random-Forest-Klassifikator: Er braucht $(16.8 \pm 0.2) \,\text{s}$, bis die \texttt{predict\_proba} Methode ausgeführt wurde.
 
 \subsection{Beispielhafte Forderung einer Präzision von mehr als 90\%}
 

@@ -1,30 +1,32 @@
 \section{Theorie}
 \label{sec:Theorie}
-Das IceCube-Experiment besteht aus einem Array aus Photodedektoren, die am geografischen Südpol im Eis eingefroren sind. Dabei befinden sich 5160 Photodedektoren in einer Tiefe zwischen $\SI{1450}{\meter}$ und $\SI{2450}{\meter}$. Ziel ist es, kosmische Neutrinos zu detektieren. Dazu wird nach Cerenkovlicht von Sekundärteilchen gesucht, die in Neutrinowechselwirkungen entstehen. Da aber noch viele andere Teilchen das Array durchqueren, müssen die gemessenen Events gefiltert werden. Ein erster Filter ist die Richtung, aus der das Teilchen kam. Die gesuchten Neutrinos stammen von \enquote{unten}, sodass die Erde als Abschirmung gegen die restliche Kosmische Strahlung wirkt. Da die Richtungsauflösung aber ungenau ist, müssen weitere Filter angewandt werden, um ein Signal mit akzeptabler Messungenauigkeit zu erhalten. Diese Klassifikation wird durch machine learning ermöglicht. 
 
-\subsection{Machine learning}
-Machine learning kann zur Klassifizierung von Events eingesetzt werden. Beim supervised learning wird dazu ein Lerner mit bereits klassifizierten Events trainiert. Die verwendeten Datensätze bestehen dabei aus Listen von Events und physikalischen Eigenschaften, genannt Features, des jeweiligen Events. Diese Features haben im Allgemeinen einen unterschiedlichen Informationsgehalt -- eine Auswahl einzelner Features (\enquote{Feature-Selection}) kann die Rechenzeit verringern und das Phänomen des \enquote{Überlernens} verhindern.
+\subsection{Astroteilchenphysik}
+
+Seit mehreren tausend Jahren wird mithilfe der optischen Astronomie unser Universum erforscht. Tiefere Einblicke konnten seit Beginn des letzten Jahrhunderts durch eine Ausbreitung der Beobachtung weiterer Teile des elektromagnetischen Spektrums z.B. in der Radio- und Ultraviolett-Astronomie erlangt werden. Eine weitere für die Astronomie interessante Strahlungsquelle ist die kosmische Strahlung, welche Information über eine Vielzahl astrophysikalischer Objekte enthält. Geladene kosmische Strahlung folgt annähernd einem Potenzgesetz
+
+\begin{equation}
+	\frac{\text{d}\Phi}{\text{d}E} = \Phi_0 E^\gamma
+\end{equation}
+
+mit einem Spektralindex $\gamma$ von etwa $-2.7$. Durch die Wechselwirkung der geladenen kosmischen Strahlung mit der Erdatmosphäre entstehen atmosphärische Myonen und Neutrinos, welche sich in konventionelle ($\gamma = -3.7$) und prompte ($\gamma = -2.7$) Teilchen  unterteilen. Die konventionellen Myonen und Neutrinos stammen aus dem Zerfall von langlebigen $\pi$- und $K$-Mesonen, während die prompten Myonen und Neutrinos aus dem Zerfall kurzlebiger Hadronen stammen. Die Richtungsinformation, die sich aus diesen atmosphärischen Sekundär-Teilchen gewinnen lässt, ist nur von begrenztem Interesse, da die geladene kosmischen Strahlung auf Ihrem Weg zur Erde durch nicht rekonstruierbare elektromagnetische Felder abgelenkt wird. Aus diesem Grund interessiert man sich für die ungeladene kosmische Strahlung, zu der auch astrophysikalische Neutrinos ($\gamma = -2$) gezählt werden: Sie werden aufgrund ihrer fehlenden elektrischen Ladung nicht durch elektromagnetische Felder beeinflusst und können aufgrund ihres kleinen Wirkungsquerschnitts auch optisch dichte Medien durchdringen. Ziel des IceCube-Experiments ist es, die astrophysikalischen Quellen hochenergetischer Neutrinos zu bestimmen. 
+
+
+\subsection{Das IceCube-Experiment}
+ 
+Das IceCube-Experiment besteht aus einem Array aus Photodedektoren, die am geografischen Südpol im Eis eingefroren sind. Dabei befinden sich 5160 Photodedektoren in einer Tiefe zwischen $\SI{1450}{\meter}$ und $\SI{2450}{\meter}$. Diese sollen Tscherenkov-Strahlung detektieren, die von geladenen Leptonen produziert wird, welche durch die Wechselwirkung der hochenergetischen Neutrinos mit den Eis-Molekülen entstehen. Elektronen produzieren sphärische Schauer und eignen daher nicht zur Richtungsrekonstruktion der Strahlung. Tauonen haben eine mit den Elektronen vergleichbare Signatur. Die Myonen, welche das Array passieren, hinterlassen hingegen lange Lichtspuren und lassen daher eine Richtungsrekonstruktion zu.
+
+Myonen, die von \enquote{unten} das Array durchqueren, müssen aus Neutrino-Wechselwirkungen stammen, da die restliche kosmische Strahlung durch die Erde abgeschirmt wird. Würde die Rekonstruktion des Zenitwinkels ideal funktionieren, könnten so die hier uninteressanten atmosphärischen Myonen von den Myonen, die durch astrophysikalische Neutroinos entstehen, unterschieden werden. Die Fehler der Rekonstruktion bewirken jedoch nur eine Vergrößerung des Verhältnisses von Signal zu Untergrunds von ca. $1:10^6$ auf ca. $1:10^3$. Ziel dieses Versuchs ist die genauere Trennung von Signal und Untergrund mithilfe von Verfahren des maschinellen Lernens.
+
+
+\subsection{Machine Learning}
+Machine Learning kann zur Klassifizierung von Events eingesetzt werden. Beim Supervised Learning wird dazu ein Lerner mit Events mit bekannter Klasse (also hier Signal oder Untergrund) trainiert. Die verwendeten Datensätze bestehen dabei aus Listen von Events und zugehörigen physikalischen Messgrößen, genannt Features. Diese Features haben im Allgemeinen einen unterschiedlichen Informationsgehalt -- eine Auswahl einzelner Features (\enquote{Feature Selection}) kann die Rechenzeit verringern und das Phänomen des \enquote{Überlernens} verhindern.
 
 \subsection{Feature-Selection}
 \label{fs}
 Im Folgenden wird die Feature-Selection \texttt{SelectKBest} aus der Software \texttt{scikit-learn} \cite{scikit} verwendet: Diese wählt mithilfe einer Funktion, die einen Score für die Klassifikation eines Datensatzes erzeugt, die $k$ am höchsten bewerteten Features aus. Als Score-Funktion wird \texttt{f\_regression} aus dem gleichen Programmpaket verwendet.
 
-%\subsection{Jaccard-Index}
-%Der Jaccard-Index $J$ beschreibt die Ähnlichkeit zweier Mengen. Er wird nach Formel \eqref{eqn:jaccard} bestimmt.
-%
-%\begin{equation}
-%	J=\frac{|F_a \cup F_b|}{|F_a \cap F_b|}
-%	\label{eqn:jaccard}
-%\end{equation}
-%
-%Die Featureauswahl wird $l$-mal auf $l$ Teilmengen ausgeführt nach Formel \eqref{eqn:jaccard_tilde}. Ein Wert nahe eins deutet auf eine gute Auswahl.
-
-%\begin{equation}
-%	\tilde{J} =\frac{2}{l(l-1)}\sum_{i=1}^l \sum_{j=i+1}^l J(F_i,F_j)
-%	\label{eqn:jaccard_tilde}
-%\end{equation}
-
-Es werden drei verschiedene Lerner verwendet: der Naive-Bayes-, der  k-Nearest-Neighbors- und der Random-Forest-Lerner. Diese werden in Folgenden genauer erklärt:
+Es werden drei verschiedene Lerner verwendet: der Naive-Bayes-, der  k-Nearest-Neighbors- und der Random-Forest-Lerner\footnote{\texttt{sklearn.naive\_bayes.GaussianNB},\\ \texttt{sklearn.neighbors.KNeighborsClassifier} und\\ \texttt{sklearn.ensemble.RandomForestClassifier}}. Diese werden in Folgenden genauer erklärt:
 
 \subsection{Naive-Bayes}
 Das Bayes'sche Theorem besagt
@@ -39,18 +41,23 @@ eins an, wenn ein Event wahrscheinlicher Signal als Untergrund ist.
 \end{equation}
 Für Klassifikationen durch mehrere Features wird das Produkt der Einzelquotienten verwendet.
 
+Sind die Attribute (hier $X$ und $Y$) kontinuierlich, ergibt sich analog für die zugehörigen Wahrscheinlichkeitsdichten:
+
+\begin{equation}
+	f_{X|Y = y}(x) = \frac{f_{Y|X = x}(y) f_X (x)}{f_Y(y)}.
+\end{equation}
+
 \subsection{k-Nearest-Neighbors}
 Beim k-Nearest-Neighbors-Lerner  werden die Features als Dimensionen eines Vektorraums interpretiert. Die einzelnen Daten entsprechen Ortsvektoren in diesem Raum. Bei einem zu
 klassifizierenden Punkt wird dann über die $k$ nächsten Datenpunkte gemittelt. Für die Berechnung der Abstände wird hier ein euklidisches Abstandsmaß verwendet.
 
 
 \subsection{Random-Forest}
-Der Random-Forest besteht aus einer Menge unkorrelierter Entscheidungsbäume, wobei an jedem Knoten eines Baumes jeweils eine zufällige Entscheidung getroffen wird. Jedem Blatt ist eine Klassifizierung zugeordnet.
-Die letztendliche Klassifizierung eines Events entsteht durch das Mitteln über die Klassifizierung der einzelnen Bäume.
+Der Random-Forest besteht aus einer Menge unkorrelierter Entscheidungsbäume, welche durch einen sog. \enquote{Bootstrap} generiert werden. Dazu werden aus dem Trainingsdatensatz weitere Datensätze von der gleichen Größe des Testdatensatzes erstellt. Die Bootstrap-Datensätze werden nun dazu verwendet, jeweils einen Entscheidungsbaum \enquote{wachsen} zu lassen. Die letztendliche Klassifizierung eines Events aus dem Testdatensatz entsteht nun durch das Mitteln über die Klassifizierung der einzelnen Entscheidungsbäume. Die negative Eigenschaft der Entscheidungsbäume, zum Überlernen zu neigen, kann so umgangen werden.
 
 
 \subsection{Bewertung}
-Eine Binäre Klassifizierung kann vier Ergebnisse haben: Signal als Signal erkannt (true-positive: $tp$), Signal als Untergrund erkannt (false-negative: $fn$),
+Eine binäre Klassifizierung kann vier Ergebnisse haben: Signal als Signal erkannt (true-positive: $tp$), Signal als Untergrund erkannt (false-negative: $fn$),
 Untergrund als Signal erkannt (false-positive: $f$p) und Untergrund als Untergrund erkannt (true-negative: $tn$). Damit lassen sich Größen zur Bewertung eines
 Lerners definieren. Die Präzision (\textit{engl.} precision) $p$ gibt an, wie wahrscheinlich ein als Signal klassifiziertes Event auch ein Signal ist. Sie wird berechnet nach
 
@@ -58,7 +65,7 @@ Lerners definieren. Die Präzision (\textit{engl.} precision) $p$ gibt an, wie w
 	p=\frac{tp}{tp+fp}.
 \end{equation}
 
-Das zweite Merkmal ist die Effizienz (\textit{engl.} recall) $r$. Sie gibt die Größe des Anteils der Signale an, die fälschlicherweise als Untergrund klassifiziert wurden. Sie wird nach
+Das zweite Merkmal ist die Effizienz (\textit{engl.} recall) $r$. Sie gibt den Anteil der Signale an, die tatsächlich als Signal klassifiziert wurden. Sie wird nach
 
 \begin{equation}
 	r=\frac{tp}{tp+fn}
@@ -67,3 +74,24 @@ Das zweite Merkmal ist die Effizienz (\textit{engl.} recall) $r$. Sie gibt die G
 berechnet. Um diese Kenngrößen zu bestimmen, muss der Lerner Daten bekommen, mit denen er nicht trainiert wurde, für die aber trotzdem die richtige Klassifizierung bekannt
 ist. Dazu teilt man die vorhandenen Event-Datensätze in $n$ Teile und trainiert mit $n-1$ Teilen. Der verbliebene Teil der Daten wird zum Testen verwenden. Dieser Vorgang
 kann so wiederholt werden, dass jeder Teil einmal zum Testen des Lerners genutzt wurde. Dadurch kann ein Mittelwert und Fehler für die Merkmale bestimmt werden. Das Vorgehen nennt sich \enquote{Kreuzvalidierung}.
+
+\subsection{Receiver-Operating Statistik}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{plots/ROC.pdf}
+\caption{Beispiel für eine ROC-Kurve aus der folgenden Datenauswertung.}
+\label{fig:ROC_bsp}
+\end{figure}
+
+Eine weitere Möglichkeit, um die Güte eines Klassifikators zu beurteilen ist die \enquote{Receiver-Operating-Characteristic}-Kurve (kurz: ROC). Eine beispielhafte Kurve ist der Abbildung \ref{fig:ROC_bsp} zu entnehmen. Zur Erstellung der Kurve werden für verschiedene Scorecuts die True-Positive-Rate (die Wahrscheinlichkeit für die korrekte Klassifikation eines Signals) und die False-Positive-Rate (die Wahrscheinlichkeit für eine falsche Klassifikation zu einem Signal) aufeinander aufgetragen. Der Scorecut ist dabei eine Größe zwischen 0 und 1, die angibt, wann der Klassfikator ein Event als Signal bzw. als Background einordnet. Die Fläche unter der Kurve (\textit{engl.} area under curve, kurz: AUC) kann als Güte des Lerners interpretiert werden. Im schlechtesten Fall beträgt sie 0.5, was einer zufälligen Klassifikation gleichkommt (angedeutet durch die gestrichelte Linie in Abbildung \ref{fig:NB_ROC}). Im besten Fall ist die AUC 1.0: Diese Fläche entspricht einer perfekten Klassifikation.
+
+\subsection{Jaccard-Index}
+Um die Güte der Feature Selection zu beurteilen, wird er Jaccard-Index $J$ berechnet:
+
+\begin{equation}
+	J=\frac{|F_a \cup F_b|}{|F_a \cap F_b|}.
+	\label{eqn:jaccard}
+\end{equation}
+
+Er beschreibt die Ähnlichkeit zweier Mengen $F_a$ und $F_b$. Im Falle der Feature-Selection sind dies die wahren bzw. vorgegebenen Klassifizierungen der Events und die Ergebnisse eines Klassifikators. Ist $J = 1$, ist sind beide Mengen identisch und die Klassifikation ideal.
